@@ -4,10 +4,11 @@ import java.util.ArrayList;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws Exception {
-        //////-------------------------------------DAY ONE------------------------------------------------////////
         AoCInputDownloader inputDownloader = new AoCInputDownloader();
-        inputDownloader.downloadInput("https://adventofcode.com/2024/day/1/input","dayOneInput");
         ReadFromFileUsingScanner scanner = new ReadFromFileUsingScanner();
+
+        //////-------------------------------------DAY ONE------------------------------------------------////////
+        inputDownloader.downloadInput("https://adventofcode.com/2024/day/1/input","dayOneInput");
         ArrayList<String> dayOneInputRaw = scanner.load("dayOneInput");
         LeftAndRightComparison dayOneInputCleaned = new LeftAndRightComparison(dayOneInputRaw);
         int partOneTotal = dayOneInputCleaned.getTotalDifference();
@@ -19,6 +20,10 @@ public class Main {
 
         //////-------------------------------------DAY TWO------------------------------------------------////////
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input","dayTwoInput");
+        ArrayList<String> dayTwoInputRaw = scanner.load("dayTwoInput");
+
+
+
 
 
     }
