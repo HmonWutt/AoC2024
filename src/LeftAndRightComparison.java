@@ -2,17 +2,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LeftAndRightComparison {
-
-    public ArrayList<Integer> left;
-    public ArrayList<Integer> right;
+    private final ArrayList<String>input;
+    public ArrayList<Integer> left = new ArrayList<>();
+    public ArrayList<Integer> right = new ArrayList<>();
     private int totalDifference = 0;
 
-    public void setLeft(ArrayList<Integer> left) {
-        this.left = left;
+    public LeftAndRightComparison(ArrayList<String> input) {
+        this.input = input;
+        split();
     }
+    private void split() {
+        for (String each : this.input) {
+            String[] output = each.split("\\s+");
+            Integer leftHalf = Integer.parseInt(output[0]);
+            Integer rightHalf = Integer.parseInt(output[1]);
+            this.left.add(leftHalf);
+            this.right.add(rightHalf);
 
-    public void setRight(ArrayList<Integer> right) {
-        this.right = right;
+        }
     }
     public ArrayList<Integer> getLeft() {
         return this.left ;

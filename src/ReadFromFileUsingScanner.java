@@ -3,24 +3,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class ReadFromFileUsingScanner {
 
-    public LeftAndRightComparison load(String filename) throws Exception {
+    public ArrayList<String> load(String filename) throws Exception {
 
         // pass the path to the file as a parameter
         File file = new File(new File(System.getProperty("user.dir")) + "/" + filename);
         //System.out.println(System.getProperty("user.dir") + "/" +filename);
         Scanner sc = new Scanner(file);
-        ArrayList<Integer> outputLeft = new ArrayList<>();
-        ArrayList<Integer> outputRight = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+
 
         while (sc.hasNextLine()) {
-            String[] line = sc.nextLine().split("\\s+ ");
-            outputLeft.add(Integer.valueOf(line[0]));
-            outputRight.add(Integer.valueOf(line[1]));
+            String line = sc.nextLine();
+            output.add(line);
         }
-        LeftAndRightComparison leftAndRightComparison = new LeftAndRightComparison();
-        leftAndRightComparison.setLeft(outputLeft);
-        leftAndRightComparison.setRight(outputRight);
-        return leftAndRightComparison;
+
+        return output;
     }
 
 }
