@@ -21,9 +21,11 @@ public class Main {
         //////-------------------------------------DAY TWO------------------------------------------------////////
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input","dayTwoInput");
         ArrayList<String> dayTwoInputRaw = scanner.load("dayTwoInput");
-
-
-
+        DayTwo totalReports = new DayTwo(dayTwoInputRaw);
+        int totalSafeReports = totalReports.getSafeReports();
+        System.out.println(totalSafeReports);
+        int allowedOneUnsafe = totalReports.allowOneUnsafe();
+        System.out.println(allowedOneUnsafe);
 
 
     }
