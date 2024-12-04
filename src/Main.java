@@ -30,7 +30,9 @@ public class Main {
         //////-------------------------------------DAY THREE------------------------------------------------////////
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/3/input","dayThreeInput");
         String dayThreeInputRaw = scanner.loadAsString("dayThreeInput");
+        String entireMatch = "mul\\((-?\\d+(\\.\\d+)?),\\s*(-?\\d+(\\.\\d+)?)\\)";
         int total = DayThree.checkInputStringForMultiplications(dayThreeInputRaw);
+
         System.out.println(total);
 
 

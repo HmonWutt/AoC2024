@@ -4,32 +4,26 @@ import java.util.regex.Pattern;
 
 public class DayThree {
 
-    int output = 0;
-
-    public static int checkInputStringForMultiplications(String input){
-        Pattern pattern =  Pattern.compile("mul\\((-?\\d+(\\.\\d+)?),\\s*(-?\\d+(\\.\\d+)?)\\)");
+    private static ArrayList<String> findMatches(String patternInput, String input){
+        Pattern pattern =  Pattern.compile(patternInput);
         Matcher match = pattern.matcher(input);
-        int total = 0;
-        if(match.find()) {
-            do {
-                int firstNumber = 0;
-                int secondNumber = 0;
-                String entireMatch = match.group();
-                Pattern patternFirstNum = Pattern.compile("(-?\\d+)+");
-                Matcher firstNum = patternFirstNum.matcher(entireMatch);
-                if (firstNum.find()){
-                    firstNumber = Integer.parseInt(firstNum.group(1));
-                };
-                Pattern patternSecondNum = Pattern.compile(",\\s*(-?\\d+(\\.\\d+)?)");  // Match the second number after ","
-                Matcher secondNum = patternSecondNum.matcher(entireMatch);
-                if (secondNum.find()){
-                    secondNumber = Integer.parseInt(secondNum.group(1));
-                };
-                int multiplication = firstNumber * secondNumber;
-                total+=multiplication;
+        ArrayList<String> output = new ArrayList<>();
+        while (match.find()) output.add(match.group(0));
+        return output;
+    }
+    public static int checkInputStringForMultiplications(String input){
 
-            } while (match.find(match.start() + 1));
-        }
+        int total = 0;
+        String entireMatchPattern = "mul\\((-?\\d+(\\.\\d+)?),\\s*(-?\\d+(\\.\\d+)?)\\)";
+        ArrayList<String> entireMatch = findMatches(entireMatchPattern,input);
+        for (String each:entireMatch){
+            String numberPattern = "(-?\\d+)+";
+            ArrayList<String> numbers = findMatches(numberPattern,each);
+            int firstNumber = Integer.parseInt(numbers.get(0));
+            int secondNumber = Integer.parseInt(numbers.get(1));
+            int multiplication = firstNumber * secondNumber;
+            total+=multiplication;
+        };
         return  total;
     }
 
