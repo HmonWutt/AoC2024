@@ -4,16 +4,54 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DayFour {
-    public static int findXMAS(ArrayList<String> matrix) {
+    public static int findXMAS(String pattern, ArrayList<String> matrix) {
         int total = 0;
         for (String each : matrix) {
             String reversed = new StringBuilder(each).reverse().toString();
-            total+=DayThree.countMatches("XMAS", each);
-            total+=DayThree.countMatches("XMAS", reversed);
-            //if (DayThree.findMatchBoolean("SAMX",reversed)) total+=1;
+            total+=DayThree.countMatches(pattern, each);
+            total+=DayThree.countMatches(pattern, reversed);
         }
-
         return total;
+    }
+    public static int findCrossedMas( ArrayList<String> matrix){
+        int total = 0;
+        boolean matched = true;
+        for (int row = 0; row < matrix.size()-2;row++) {
+            for (int col = 0; col <matrix.size()-2;col++) {
+                char currentChar = matrix.get(row).charAt(col);
+                if (currentChar == 'M'){
+                    matched = checkCharAtPoistion('S', matrix.get(row ), col + 2)
+                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
+                            && checkCharAtPoistion('M', matrix.get(row + 2), col)
+                            && checkCharAtPoistion('S', matrix.get(row + 2), col + 2);
+                    if (matched) total += 1;
+
+                    matched = checkCharAtPoistion('M', matrix.get(row ), col + 2)
+                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
+                            && checkCharAtPoistion('S', matrix.get(row + 2), col)
+                            && checkCharAtPoistion('S', matrix.get(row + 2), col + 2);
+                    if (matched) total += 1;
+                }
+                if (currentChar == 'S') {
+                    matched = checkCharAtPoistion('M', matrix.get(row), col + 2)
+                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
+                            && checkCharAtPoistion('S', matrix.get(row + 2), col)
+                            && checkCharAtPoistion('M', matrix.get(row + 2), col + 2);
+                    if (matched) total += 1;
+
+                    matched = checkCharAtPoistion('S', matrix.get(row ), col + 2)
+                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
+                            && checkCharAtPoistion('M', matrix.get(row + 2), col)
+                            && checkCharAtPoistion('M', matrix.get(row + 2), col + 2);
+                    if (matched) total += 1;
+                }
+
+            }
+        }
+        return total;
+    }
+    public static boolean checkCharAtPoistion(char character, String str,  int y){
+        return str.charAt(y) == character;
     }
     public static String reverseString(String originalString){
         String reversedString = "";

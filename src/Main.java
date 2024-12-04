@@ -42,15 +42,20 @@ public class Main {
         ArrayList<String> originalMatrix = scanner.loadAsArray("dayFourInput");
         //ArrayList<String> originalMatrix = scanner.loadAsArray("dayFourTest");
         int totalXMASES = 0;
-        totalXMASES+=DayFour.findXMAS(originalMatrix);
+        String partOnePattern = "XMAS";
+        totalXMASES+=DayFour.findXMAS(partOnePattern,originalMatrix);
         ArrayList<String> diagnolaisedOriginalMatrix = DayFour.diagnoalise(originalMatrix);
-        totalXMASES+=DayFour.findXMAS(diagnolaisedOriginalMatrix);
+        totalXMASES+=DayFour.findXMAS(partOnePattern,diagnolaisedOriginalMatrix);
         ArrayList<String> rowsAndColsSwappedMatrix = DayFour.swapRowsAndCols(originalMatrix);
-        totalXMASES+=DayFour.findXMAS(rowsAndColsSwappedMatrix);
+        totalXMASES+=DayFour.findXMAS(partOnePattern,rowsAndColsSwappedMatrix);
         ArrayList<String> swappedRowsAndColsReversed = DayFour.reverse(rowsAndColsSwappedMatrix);
         ArrayList<String> diagnolaisedSwappedRowsAndCols = DayFour.diagnoalise(swappedRowsAndColsReversed);
-        totalXMASES+=DayFour.findXMAS(diagnolaisedSwappedRowsAndCols);
+        totalXMASES+=DayFour.findXMAS(partOnePattern,diagnolaisedSwappedRowsAndCols);
         System.out.println("Day four part one: "+totalXMASES);
+
+        int totalFourTwo=0;
+        totalFourTwo+= DayFour.findCrossedMas(originalMatrix);
+        System.out.println(totalFourTwo);
 
 
     }

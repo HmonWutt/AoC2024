@@ -10,13 +10,10 @@ public class ReadFromFileUsingScanner {
         //System.out.println(System.getProperty("user.dir") + "/" +filename);
         Scanner sc = new Scanner(file);
         ArrayList<String> output = new ArrayList<>();
-
-
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             output.add(line);
         }
-
         return output;
     }
     public String loadAsString(String filename) throws Exception {
