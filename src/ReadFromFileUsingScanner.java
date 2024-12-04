@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class ReadFromFileUsingScanner {
 
-    public ArrayList<String> load(String filename) throws Exception {
+    public ArrayList<String> loadAsArray(String filename) throws Exception {
 
         // pass the path to the file as a parameter
         File file = new File(new File(System.getProperty("user.dir")) + "/" + filename);
