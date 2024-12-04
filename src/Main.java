@@ -27,6 +27,15 @@ public class Main {
         int allowedOneUnsafe = totalReports.allowOneUnsafe();
         System.out.println(allowedOneUnsafe);
 
+        //////-------------------------------------DAY THREE------------------------------------------------////////
+        inputDownloader.downloadInput("https://adventofcode.com/2024/day/3/input","dayThreeInput");
+        String dayThreeInputRaw = scanner.loadAsString("dayThreeInput");
+        int total = DayThree.checkInputStringForMultiplications(dayThreeInputRaw);
+        System.out.println(total);
+
+
+
+
 
     }
 
