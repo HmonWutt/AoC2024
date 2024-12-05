@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DayFour {
     public static int findXMAS(String pattern, ArrayList<String> matrix) {
@@ -19,38 +16,47 @@ public class DayFour {
         for (int row = 0; row < matrix.size()-2;row++) {
             for (int col = 0; col <matrix.size()-2;col++) {
                 char currentChar = matrix.get(row).charAt(col);
-                if (currentChar == 'M'){
-                    matched = checkCharAtPoistion('S', matrix.get(row ), col + 2)
-                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
-                            && checkCharAtPoistion('M', matrix.get(row + 2), col)
-                            && checkCharAtPoistion('S', matrix.get(row + 2), col + 2);
-                    if (matched) total += 1;
-
-                    matched = checkCharAtPoistion('M', matrix.get(row ), col + 2)
-                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
-                            && checkCharAtPoistion('S', matrix.get(row + 2), col)
-                            && checkCharAtPoistion('S', matrix.get(row + 2), col + 2);
-                    if (matched) total += 1;
-                }
-                if (currentChar == 'S') {
-                    matched = checkCharAtPoistion('M', matrix.get(row), col + 2)
-                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
-                            && checkCharAtPoistion('S', matrix.get(row + 2), col)
-                            && checkCharAtPoistion('M', matrix.get(row + 2), col + 2);
-                    if (matched) total += 1;
-
-                    matched = checkCharAtPoistion('S', matrix.get(row ), col + 2)
-                            && checkCharAtPoistion('A', matrix.get(row + 1), col + 1)
-                            && checkCharAtPoistion('M', matrix.get(row + 2), col)
-                            && checkCharAtPoistion('M', matrix.get(row + 2), col + 2);
-                    if (matched) total += 1;
-                }
-
+                matched = check3by3box(matrix,currentChar,
+                        'M','S', 'A','M','S',
+                        row,col);
+                if (matched) total += 1;
+                matched = check3by3box(matrix,currentChar,
+                        'M','M', 'A','S','S',
+                        row,col);
+                if (matched) total += 1;
+                matched = check3by3box(matrix,currentChar,
+                        'S','M', 'A','S','M',
+                        row,col);
+                if (matched) total += 1;
+                matched =  check3by3box(matrix,currentChar,
+                        'S','S', 'A','M','M',
+                        row,col);
+                if (matched) total += 1;
             }
         }
         return total;
     }
-    public static boolean checkCharAtPoistion(char character, String str,  int y){
+
+    public static boolean check3by3box(ArrayList<String> matrix,
+                                       char currentChar,
+                                       char toMatch,
+                                       char rowSameCol2Right,
+                                       char row1DownCol1Right,
+                                       char row2DownColSame,
+                                       char row2DownCol2Right,
+                                       int row,
+                                       int col) {
+        boolean isXMAS = true;
+        if (currentChar == toMatch) {
+            isXMAS = checkCharAtPosition(rowSameCol2Right, matrix.get(row), col + 2)
+                    && checkCharAtPosition(row1DownCol1Right, matrix.get(row + 1), col + 1)
+                    && checkCharAtPosition(row2DownColSame, matrix.get(row + 2), col)
+                    && checkCharAtPosition(row2DownCol2Right, matrix.get(row + 2), col + 2);
+        }
+        else return false;
+        return isXMAS;
+    }
+    public static boolean checkCharAtPosition ( char character, String str,int y){
         return str.charAt(y) == character;
     }
     public static String reverseString(String originalString){
@@ -135,7 +141,5 @@ public class DayFour {
         }
         return output;
    }
-
-
 
 }
