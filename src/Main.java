@@ -51,12 +51,27 @@ public class Main {
         ArrayList<String> swappedRowsAndColsReversed = DayFour.reverse(rowsAndColsSwappedMatrix);
         ArrayList<String> diagnolaisedSwappedRowsAndCols = DayFour.diagnoalise(swappedRowsAndColsReversed);
         totalXMASES+=DayFour.findXMAS(partOnePattern,diagnolaisedSwappedRowsAndCols);
-        System.out.println("Day four part one: "+totalXMASES);
-
+        System.out.println("Day four part one: "+ totalXMASES);
         int totalFourTwo=0;
         totalFourTwo+= DayFour.findCrossedMas(originalMatrix);
         System.out.println(totalFourTwo);
 
+        /////////////////////////////////////////DAY FIVE//////////////////////////////////
+        inputDownloader.downloadInput("https://adventofcode.com/2024/day/5/input", "dayFiveInput");
+        ArrayList<String> dayFiveInput = scanner.loadAsArray("dayFiveInput");
+        int index = 0;
+        ArrayList<String> topHalf = new ArrayList<>();
+        ArrayList<String> bottomHalf = new ArrayList<>();
+
+        while (!dayFiveInput.get(index).isEmpty()){
+            topHalf.add(dayFiveInput.get(index));
+            index++;
+        }
+        index++;
+        while(index < dayFiveInput.size()){
+           bottomHalf.add(dayFiveInput.get(index)) ;
+           index++;
+        }
 
     }
-}
+    }
