@@ -4,86 +4,205 @@ public class Guard {
     ArrayList<String> matrix;
     int X;
     int Y;
-    public Guard(ArrayList<String> matrix){
-        this.matrix = matrix;
-        findStartPosition();
-
-    }
-    public void coordinates (int X,int Y){
-        this.X = X;
-        this.Y = Y;
-    }
-
-    public void go(String direction){
-        if (direction=="U"){
-            this.X -=1;
-           // System.out.println("GO UP");
-        }
-        else if (direction=="D"){
-            this.X +=1;
+    public void go(String direction) {
+        if (direction == "U") {
+            this.X -= 1;
+            // System.out.println("GO UP");
+        } else if (direction == "D") {
+            this.X += 1;
             //System.out.println("GO DOWN");
-        }
-        else if (direction=="L"){
-            this.Y -=1;
+        } else if (direction == "L") {
+            this.Y -= 1;
             //System.out.println("GO LEFT");
-        }
-        else{
-            this.Y +=1;
-           // System.out.println("GO RIGHT");
+        } else {
+            this.Y += 1;
+            // System.out.println("GO RIGHT");
         }
 
     }
-    public boolean isObstacle(String currentDIrection){
-        char currentSpot ;
-        if (currentDIrection=="U") currentSpot = this.matrix.get(this.X-1).charAt(this.Y);
-        else if(currentDIrection == "D") currentSpot = this.matrix.get(this.X+1).charAt(this.Y);
-        else if (currentDIrection == "L") currentSpot = this.matrix.get(this.X).charAt(this.Y-1);
-        else currentSpot = this.matrix.get(this.X).charAt(this.Y+1);
+
+    public boolean isObstacle(String currentDIrection,ArrayList<String> matrix) {
+        char currentSpot;
+        if (Objects.equals(currentDIrection, "U")) currentSpot = matrix.get(this.X - 1).charAt(this.Y);
+        else if (Objects.equals(currentDIrection,"D"))currentSpot = matrix.get(this.X + 1).charAt(this.Y);
+        else if (Objects.equals(currentDIrection, "L"))currentSpot = matrix.get(this.X).charAt(this.Y - 1);
+        else currentSpot = matrix.get(this.X).charAt(this.Y + 1);
         //if (currentSpot == '#')  System.out.println("Obstacle "+currentDIrection);
-        return currentSpot =='#';
+        return currentSpot == '#';
     }
-    public void findStartPosition(){
-        for (int X=0; X< this.matrix.size();X++) {
-            this.X = X;
-            if (this.matrix.get(X).indexOf("^")>0){
-                this.Y = this.matrix.get(X).indexOf("^");
-                return;
+    public String findClearPath(String currentDIrection,ArrayList<String> matrix) {
+
+        char currentSpot = '#';
+        ArrayList<Integer> XY = new ArrayList<>();
+        int X = this.X;
+        int Y = this.Y;
+        String newDirection = "";
+        String currentCoordinatesAndDirection = "";
+        Set<String> path = new HashSet<>();
+        int upperLimit = matrix.size();
+        while (currentSpot == '#' && (X >= 0 && X <= upperLimit - 1) && (Y >= 0 && Y <= upperLimit - 1)){
+            path = new HashSet<>();
+            if (path.contains(currentCoordinatesAndDirection)){
+                return "";}
+            if (Objects.equals(currentDIrection, "U")) {
+                currentSpot = matrix.get(X - 1).charAt(Y);
+                if (currentSpot == '#') {
+                    newDirection = chooseDirection("U");
+                    Y += 1;
+                }
+            } else if (Objects.equals(currentDIrection, "D")) {
+                currentSpot = matrix.get(X + 1).charAt(Y);
+                if (currentSpot == '#') {
+                    newDirection = chooseDirection("D");
+                    Y -= 1;
+                }
+            } else if (Objects.equals(currentDIrection, "L")) {
+                currentSpot = matrix.get(X).charAt(Y - 1);
+                if (currentSpot == '#') {
+                    newDirection = chooseDirection("L");
+                    X -= 1;
+                }
+            } else {
+                currentSpot = matrix.get(X).charAt(Y + 1);
+
+                if (currentSpot == '#')
+                {
+                    newDirection = chooseDirection("R");
+                    X += 1;
+                }
+                //System.out.println("new direciton: "+newDirection);
+            }
+            //System.out.println("new direciton: "+newDirection);
+            //currentSpot = matrix.get(X).charAt(Y);
+            currentCoordinatesAndDirection = "(" + X + "," + Y + "," + newDirection + ")";
+            //System.out.println(currentCoordinatesAndDirection);
+            path.add(currentCoordinatesAndDirection);
+
+        }
+
+        //this.X = X;
+        //this.Y = Y;
+        return newDirection;
+    }
+    public static ArrayList<Integer> findStartPosition(ArrayList<String> matrix) {
+        int x=0;
+        int y=0;
+        ArrayList<Integer> coordinates = new ArrayList<>();
+        for (int X = 0; X < matrix.size(); X++) {
+            x = X;
+            if (matrix.get(X).indexOf('^') > 0) {
+                y= matrix.get(X).indexOf('^');
+                coordinates.add(x);
+                coordinates.add(y);
             }
         }
+        return coordinates;
     }
-    public String chooseDirection(String currentDIrection){
-        if (currentDIrection=="U") return "R";
-        else if(currentDIrection == "D") return "L";
-        else if (currentDIrection == "L") return "U";
+
+    public String chooseDirection(String currentDIrection) {
+        if (Objects.equals(currentDIrection,"U")) return "R";
+        else if (Objects.equals(currentDIrection,"D")) return "L";
+        else if (Objects.equals(currentDIrection,"L")) return "U";
         return "D";
     }
-
-    public int navigateMatrix() {
+    public boolean navigateMatrix(ArrayList<String> matrix) {
         Set<String> uniqueSpots = new HashSet<>();
-        int XUpperLimit = this.matrix.size();
-        int YUpperLimit = this.matrix.get(0).length();
+        ArrayList<Integer> coordinates = findStartPosition(matrix);
+        this.X = coordinates.get(0);
+        this.Y =coordinates.get(1);
+        //System.out.println(this.X +","+this.Y);
+        int XUpperLimit = matrix.size();
+        int YUpperLimit = matrix.get(0).length();
         String currentDirection = "U";
         boolean isObstacle = false;
-        try {
-            while ((this.X > 0 && this.X < XUpperLimit - 1) && (this.Y > 0 && this.Y < YUpperLimit - 1)) {
-                String currentCoordinates = this.X + "," + this.Y;
-                uniqueSpots.add(currentCoordinates);
-                go(currentDirection);
-                isObstacle = isObstacle(currentDirection);
+        Set<String> path = new HashSet<>();
 
-                //if (!isObstacle && (this.X-1 == 0 |this.X+1 == XUpperLimit - 1| this.Y-1 == 0 | this.Y+1 == YUpperLimit - 1)) break;
-                if (isObstacle) {
-                    //System.out.println("Met obstacle");
-                    currentDirection = chooseDirection(currentDirection);
+        boolean isInLoop = false;
+        while ((this.X > 0 && this.X < XUpperLimit - 1) && (this.Y > 0 && this.Y < YUpperLimit - 1)) {
+            String currentCoordinates = "(" + this.X + "," + this.Y + ")";
+            String currentCoordinatesAndDirection = "(" + this.X + "," + this.Y + ","+currentDirection+")";
+            if ( path.contains(currentCoordinatesAndDirection)){
+                //System.out.println(path+currentCoordinates);
+                {
+                    isInLoop=true;
+                    break;
                 }
             }
-        } catch (Exception e) {
-            String currentCoordinates = this.X + "," + this.Y;
-            uniqueSpots.add(currentCoordinates);
-            System.out.println("Found way out!Leaving the matrix!!@ "+this.X+","+this.Y);
+            if (isInLoop) break;
+            //uniqueSpots.add(currentCoordinates);
+            path.add(currentCoordinatesAndDirection);
+            isObstacle = isObstacle(currentDirection, matrix);
+            //if (!isObstacle && (this.X-1 == 0 |this.X+1 == XUpperLimit - 1| this.Y-1 == 0 | this.Y+1 == YUpperLimit - 1)) break;
+            int count = 0;
+            while(isObstacle) {
+                currentDirection = findClearPath(currentDirection,matrix);
+                if (currentDirection.isEmpty()) {
+                    isInLoop = true;
+                    break;
+                }
+                isObstacle = isObstacle(currentDirection, matrix);
+            }
+            go(currentDirection);
         }
-        return uniqueSpots.size();
+        return isInLoop;
     }
 
-}
 
+    public ArrayList<String> putObstacle(int x, int y, ArrayList<String> matrix) {
+        ArrayList<String> newMatrix = new ArrayList<>();
+        String newString = "";
+        for (int j = 0; j < matrix.size(); j++) {
+            if (j == x) {
+                String toModify = matrix.get(x);
+                for (int i = 0; i < toModify.length(); i++) {
+                    if (i == y) {
+                        newString += '#';
+                    }
+                    else {
+                        newString += toModify.charAt(i);
+                    }
+                }
+                newMatrix.add( newString);
+            }
+            else{
+                newMatrix.add(matrix.get(j));
+            }
+        }
+        return newMatrix;
+    }
+    public void decidePositionOfObsticle(ArrayList<String> matrix){
+        int count =0;
+        ArrayList<Integer> coordinates = findStartPosition(matrix);
+        final int xToSkip = coordinates.get(0);
+        final int yToSkip =coordinates.get(1);
+        ArrayList<String> newMatrix = new ArrayList<>();
+        float it = 0;
+        String coordinateXY = "";
+        boolean isLoop = false;
+        for (int x=0;x<matrix.size();x++){
+            for (int y=0;y<matrix.size();y++){
+                if (++it % 100==0)
+                    System.out.println(it/(matrix.size()*matrix.size()));
+                if (!(x==xToSkip && y==yToSkip)){
+                    String XY = "("+x+","+y+")"+",";
+                    coordinateXY+=XY;
+                    newMatrix = putObstacle(x,y,matrix);
+                    isLoop = navigateMatrix(newMatrix);
+                    if (isLoop) {
+                        count += 1;
+
+                        /*for (String each : newMatrix) {
+                            System.out.print(each);
+                            System.out.println();
+
+                        }
+                        System.out.println("=======================================================");*/
+                    }
+                }
+
+            }
+        }
+        //System.out.println("["+coordinateXY+"]");
+        System.out.println("in loop"+count);
+    }
+}
