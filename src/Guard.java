@@ -27,7 +27,6 @@ public class Guard {
         else if (Objects.equals(currentDIrection,"D"))currentSpot = matrix.get(this.X + 1).charAt(this.Y);
         else if (Objects.equals(currentDIrection, "L"))currentSpot = matrix.get(this.X).charAt(this.Y - 1);
         else currentSpot = matrix.get(this.X).charAt(this.Y + 1);
-        //if (currentSpot == '#')  System.out.println("Obstacle "+currentDIrection);
         return currentSpot == '#';
     }
     public String findClearPath(String currentDIrection,ArrayList<String> matrix) {
@@ -70,18 +69,12 @@ public class Guard {
                     newDirection = chooseDirection("R");
                     X += 1;
                 }
-                //System.out.println("new direciton: "+newDirection);
+
             }
-            //System.out.println("new direciton: "+newDirection);
-            //currentSpot = matrix.get(X).charAt(Y);
             currentCoordinatesAndDirection = "(" + X + "," + Y + "," + newDirection + ")";
-            //System.out.println(currentCoordinatesAndDirection);
             path.add(currentCoordinatesAndDirection);
 
         }
-
-        //this.X = X;
-        //this.Y = Y;
         return newDirection;
     }
     public static ArrayList<Integer> findStartPosition(ArrayList<String> matrix) {
@@ -105,12 +98,11 @@ public class Guard {
         else if (Objects.equals(currentDIrection,"L")) return "U";
         return "D";
     }
-    public boolean navigateMatrix(ArrayList<String> matrix) {
+    public boolean navigateMatrix(ArrayList<String> matrix,boolean isPartOne) {
         Set<String> uniqueSpots = new HashSet<>();
         ArrayList<Integer> coordinates = findStartPosition(matrix);
         this.X = coordinates.get(0);
         this.Y =coordinates.get(1);
-        //System.out.println(this.X +","+this.Y);
         int XUpperLimit = matrix.size();
         int YUpperLimit = matrix.get(0).length();
         String currentDirection = "U";
@@ -119,21 +111,20 @@ public class Guard {
 
         boolean isInLoop = false;
         while ((this.X > 0 && this.X < XUpperLimit - 1) && (this.Y > 0 && this.Y < YUpperLimit - 1)) {
-            String currentCoordinates = "(" + this.X + "," + this.Y + ")";
+            if (isPartOne) {
+                String currentCoordinates = "(" + this.X + "," + this.Y + ")";
+                uniqueSpots.add(currentCoordinates);
+            }
             String currentCoordinatesAndDirection = "(" + this.X + "," + this.Y + ","+currentDirection+")";
             if ( path.contains(currentCoordinatesAndDirection)){
-                //System.out.println(path+currentCoordinates);
                 {
                     isInLoop=true;
                     break;
                 }
             }
             if (isInLoop) break;
-            //uniqueSpots.add(currentCoordinates);
             path.add(currentCoordinatesAndDirection);
             isObstacle = isObstacle(currentDirection, matrix);
-            //if (!isObstacle && (this.X-1 == 0 |this.X+1 == XUpperLimit - 1| this.Y-1 == 0 | this.Y+1 == YUpperLimit - 1)) break;
-            int count = 0;
             while(isObstacle) {
                 currentDirection = findClearPath(currentDirection,matrix);
                 if (currentDirection.isEmpty()) {
@@ -143,6 +134,10 @@ public class Guard {
                 isObstacle = isObstacle(currentDirection, matrix);
             }
             go(currentDirection);
+        }
+        if (isPartOne) {
+            int numUniqueSpots = uniqueSpots.size()+1;
+            System.out.println("Unique spots: "+ numUniqueSpots);
         }
         return isInLoop;
     }
@@ -187,7 +182,7 @@ public class Guard {
                     String XY = "("+x+","+y+")"+",";
                     coordinateXY+=XY;
                     newMatrix = putObstacle(x,y,matrix);
-                    isLoop = navigateMatrix(newMatrix);
+                    isLoop = navigateMatrix(newMatrix,false);
                     if (isLoop) {
                         count += 1;
 
