@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Dictionary;
 
 public class Page {
      Map<String, List<String>> dictionary = new HashMap<>();
@@ -16,13 +15,13 @@ public class Page {
             addToDictionary(dictionaryTemp,frontBack.get(0), frontBack.get(1));
         }
         this.dictionary = dictionaryTemp;
-        printDictionary((HashMap<String, List<String>>)this.dictionary);
+        //printDictionary((HashMap<String, List<String>>)this.dictionary);
     }
     public void printDictionary(HashMap<String,List<String>>dictionary){
         for (Map.Entry<String, List<String>> entry : dictionary.entrySet()) {
             String key = entry.getKey();
             List<String>value = entry.getValue();
-           // System.out.println(key + ": " +value);
+            System.out.println(key + ": " +value);
         }
     }
     public static void addToDictionary(Map<String, List<String>> dictionary, String key, String value) {
@@ -58,9 +57,6 @@ public class Page {
                 Set<String> tempSet = new HashSet<>();
                 if (this.dictionary.get(eachLine.get(page))!=null) {
                     List<String> mustBeAfterCurrentValue = this.dictionary.get(eachLine.get(page));
-
-                    System.out.println("nums before: " + allNumbersBeforeNow);
-
                         if (mustBeAfterCurrentValue.size() > allNumbersBeforeNow.size()) {
                             tempSet = new HashSet<>(mustBeAfterCurrentValue); // Copy of value
                             tempSet.retainAll(allNumbersBeforeNow);
@@ -73,7 +69,6 @@ public class Page {
 
                 isInOrder = tempSet.isEmpty();
                 if (!isInOrder) break;
-                System.out.println(isInOrder);
                 allNumbersBeforeNow.add(eachLine.get(page));
                 page += 1;
             }
