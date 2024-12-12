@@ -80,7 +80,6 @@ public class DayFour {
        return transformedMatrix;
    }
 
-
    public static ArrayList<String> diagnoalise(ArrayList<String> matrix){
         ArrayList<String> diagonalList = new ArrayList<>();
         String diagonals = "";
