@@ -1,36 +1,63 @@
 import java.util.ArrayList;
 
-public class Uti{
-    public static int getYcoponent(Node one, Node two){
+public class Uti {
+    public static int getYcoponent(Node one, Node two) {
         return one.getY() - two.getY();
     }
-    public static int getXcomponent(Node one, Node two){
+
+    public static int getXcomponent(Node one, Node two) {
         return one.getX() - two.getX();
     }
-    public static  Antinode createAntinode(int x, int y) {
-        Antinode newAntinode = null;
-        //if ((x>=0 && x<=bound) && (y>=0 && y<=bound)) {
-             newAntinode = new Antinode(x,y);
-            return newAntinode;
-
+    public static Antinode createAntinode(int x, int y){
+        return new Antinode(x,y);
     }
-    public static boolean isNode(ArrayList<Node>matrix, int x, int y){
+    public static boolean isInBound(int x, int y,int bound) {
+        return (x >=0 && x< bound && y>=0 && y<bound);
+    }
+
+    public static boolean isNode(ArrayList<Node> matrix, int x, int y) {
         boolean isNode = false;
-        int index =0;
-        while (!isNode && index < matrix.size())
-        {
-            isNode = matrix.get(index).getX()==x && matrix.get(index).getY()==y;
-            index+=1;
+        int index = 0;
+        while (!isNode && index < matrix.size()) {
+            isNode = matrix.get(index).getX() == x && matrix.get(index).getY() == y;
+            index += 1;
         }
         return isNode;
 
     }
-    public static Distance getDistance(Node one, Node two){
-        int Xdifference = one.x-two.x;
-        int Ydifference = one.y-two.y;
-       // System.out.println("Distance: "+Math.sqrt(Xdifference * Xdifference + Ydifference*Ydifference));
-        return new Distance(Xdifference,Ydifference);
+
+    public static ArrayList<Node> getNodes(ArrayList<String> input) {
+        int bound = input.size();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (int row = 0; row < bound; row++) {
+            for (int col = 0; col < bound; col++) {
+                if (input.get(row).charAt(col) != '.') {
+                    String frequency = Character.toString(input.get(row).charAt(col));
+                    Node newNode = new Node(frequency, row, col);
+                    nodes.add(newNode);
+                }
+            }
+        }
+        return nodes;
+    }
+
+    public static void printMatrix(ArrayList<String> matrix) {
+        for (String each : matrix) System.out.println(each);
+        System.out.println("------------------------");
+    }
+
+    public static ArrayList<String> markAntinodes(ArrayList<String> matrix, int x, int y) {
+        String temp = matrix.get(x);
+        String newString = "";
+        for (int k = 0; k < temp.length(); k++) {
+            if (k != y) {
+                newString += temp.charAt(k);
+            } else {
+                newString += "#";
+            }
+        }
+        matrix.set(x, newString);
+        return matrix;
     }
 }
-
 
