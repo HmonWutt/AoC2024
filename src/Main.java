@@ -80,13 +80,18 @@ public class Main {
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/8/input", "dayEightInput");
         ArrayList<String> dayEightInput = scanner.loadAsArray("dayEightInput");
         ArrayList<String> matrix = new ArrayList<>(dayEightInput);
-        ArrayList<String> matrixResonant = new ArrayList<>();
+        ArrayList<String> matrixPartOne;
+        ArrayList<String> matrixResonant;
         int bound = matrix.size();
         ArrayList<Node> nodes = Uti.getNodes(matrix);
-        matrixResonant = Uti.makeNewMatrices(nodes,dayEightInput,bound);
+        matrixPartOne = Uti.makeNewMatrices(nodes,dayEightInput,bound,true);
+        matrixResonant = Uti.makeNewMatrices(nodes,dayEightInput,bound,false);
+        int totalOne = Uti.countAntinodesPartOne(matrixPartOne);
+        Uti.printMatrix(matrixPartOne);
+        System.out.println("Part one answer: "+totalOne+"\n");
         int total = Uti.countAntinodesPartTwo(matrixResonant);
         Uti.printMatrix(matrixResonant);
-        System.out.println(total);
+        System.out.println("Part two answer: "+total);
 
    /*     String inptStr ="2333133121414131402";
         ArrayList<Integer> updatedString = new ArrayList<>(Collections.nCopies(200, 0));

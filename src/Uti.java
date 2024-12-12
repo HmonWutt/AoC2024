@@ -17,12 +17,14 @@ public class Uti {
         return (x >= 0 && x < bound && y >= 0 && y < bound);
     }
 
-    public static ArrayList<String> makeNewMatrices(ArrayList<Node> nodes ,ArrayList<String> matrix, int bound) {
+    public static ArrayList<String> makeNewMatrices(ArrayList<Node> nodes ,ArrayList<String> matrix, int bound, boolean isPartOne) {
+        ArrayList<String> matrixPartOne = new ArrayList<>(matrix);
         int scalarSame = 2;
         int sameDirectionTwiceMagnitudeX ;
         int sameDirectionTwiceMagnitudeY;
         int oppositeDirectionSameMagnitudeX ;
         int oppositeDirectionSameMagnitudeY;
+
         for (int i = 0; i < nodes.size() - 1; i++) {
             for (int j = i + 1; j < nodes.size(); j++) {
                 //System.out.println(i + "," + j);
@@ -32,16 +34,17 @@ public class Uti {
                     int yOrigin = parameters.yOrigin;
                     int xComponent = parameters.xComponent;
                     int yComponent = parameters.yComponent;
-                    sameDirectionTwiceMagnitudeX = xOrigin + 2 * xComponent;
-                    sameDirectionTwiceMagnitudeY = yOrigin +2 * yComponent;
+                    sameDirectionTwiceMagnitudeX = xOrigin + scalarSame * xComponent;
+                    sameDirectionTwiceMagnitudeY = yOrigin + scalarSame * yComponent;
                     if (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
-                        // matrix = Uti.markAntinodes(matrix,sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY);
+                        if (isPartOne) {
+                            matrixPartOne = Uti.markAntinodes(matrixPartOne,sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY);
+                        }
                         matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
                         //Uti.printMatrix(matrix);
                     }
                     while (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
                         matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
-                        //Uti.printMatrix(matrixResonant);
                         scalarSame += 1;
                         sameDirectionTwiceMagnitudeX = xOrigin + scalarSame * xComponent;
                         sameDirectionTwiceMagnitudeY = yOrigin + scalarSame * yComponent;
@@ -50,14 +53,15 @@ public class Uti {
                     oppositeDirectionSameMagnitudeX = xOrigin - xComponent;
                     oppositeDirectionSameMagnitudeY = yOrigin - yComponent;
                    if (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
-                        //if (isPartOne)matrix = Uti.markAntinodes(matrix,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY );
+                        if (isPartOne){
+                            matrixPartOne = Uti.markAntinodes(matrixPartOne,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY );
+                        }
                         matrix = Uti.markAntinodes(matrix, oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY);
-                        //Uti.printMatrix(matrix);
+
                     }
 
                     while (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
                         matrix = Uti.markAntinodes(matrix,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY);
-                       // Uti.printMatrix(matrixResonant);
                         oppositeDirectionSameMagnitudeX -= xComponent;
                         oppositeDirectionSameMagnitudeY -= yComponent;
                         ;
@@ -66,23 +70,10 @@ public class Uti {
                 scalarSame=2;
             }
         }
+        if (isPartOne) return matrixPartOne;
         return matrix;
         }
 
-    public static ArrayList<Node> getNotNodes(ArrayList<String> input) {
-        int bound = input.size();
-        ArrayList<Node> nodes = new ArrayList<>();
-        for (int row = 0; row < bound; row++) {
-            for (int col = 0; col < bound; col++) {
-                if (input.get(row).charAt(col) == '#') {
-                    String frequency = Character.toString(input.get(row).charAt(col));
-                    Node newNode = new Node(frequency, row, col);
-                    nodes.add(newNode);
-                }
-            }
-        }
-        return nodes;
-    }
     public static ArrayList<Node> getNodes(ArrayList<String> input) {
         int bound = input.size();
         ArrayList<Node> nodes = new ArrayList<>();
@@ -97,7 +88,7 @@ public class Uti {
         }
         return nodes;
     }
-    public static int countAntinodes(ArrayList<String > matrix){
+    public static int countAntinodesPartOne(ArrayList<String > matrix){
         int total = 0;
         for (int row = 0; row < matrix.size() ; row++) {
             for (int col = 0; col < matrix.size(); col++) {
@@ -121,7 +112,7 @@ public class Uti {
     }
     public static void printMatrix(ArrayList<String> matrix) {
         for (String each : matrix) System.out.println(each);
-        System.out.println("------------------------");
+        System.out.println("-----------------------------------------------------------------------------");
     }
 
     public static ArrayList<String> markAntinodes(ArrayList<String> matrix, int x, int y) {
