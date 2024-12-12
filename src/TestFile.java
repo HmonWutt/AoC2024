@@ -25,7 +25,7 @@ public class TestFile {
         return finalList;
     }
 
-    public static boolean recursion(BigInteger result,BigInteger value, ArrayList<BigInteger> values){
+    public static boolean recursion(BigInteger result,BigInteger value, ArrayList<BigInteger> values, boolean isPartOne){
 
         if (values.isEmpty()){
             return Objects.equals(result, value);
@@ -34,24 +34,37 @@ public class TestFile {
             BigInteger temp = values.remove(0);
             boolean resultOne;
             boolean resultTwo;
-            resultOne = recursion(result,value.multiply(temp),new ArrayList<BigInteger>(values));
-            resultTwo =  recursion(result,value.add(temp),new ArrayList<BigInteger>(values));
+            boolean resultThree;
+
+            if (isPartOne){
+            resultOne = recursion(result,value.multiply(temp),new ArrayList<BigInteger>(values), isPartOne);
+            resultTwo =  recursion(result,value.add(temp),new ArrayList<BigInteger>(values),isPartOne);
+            resultThree =  recursion(result,stringToBigInteger(value,temp),new ArrayList<BigInteger>(values),isPartOne);
+            return resultOne||resultTwo||resultThree;}
+            resultOne = recursion(result,value.multiply(temp),new ArrayList<BigInteger>(values), isPartOne);
+            resultTwo =  recursion(result,value.add(temp),new ArrayList<BigInteger>(values),isPartOne);
             return resultOne||resultTwo;
         }
     }
+    public static BigInteger stringToBigInteger(BigInteger firstNum, BigInteger secondNum ){
+        String firstNumStr = firstNum.toString();
+        String secondNumStr = secondNum.toString();
+        String concatStr = firstNumStr+secondNumStr;
+        return new BigInteger(concatStr);
 
-    public static ArrayList<BigInteger> findTrueTestValues(ArrayList<ArrayList<BigInteger>> input){
+    }
+    public static ArrayList<BigInteger> findTrueTestValues(ArrayList<ArrayList<BigInteger>> input, boolean isPartTwo){
         ArrayList<BigInteger> passed = new ArrayList<>();
         for (ArrayList<BigInteger>each:input){
             ArrayList<BigInteger> rightOperand = sliceArray(each,1,each.size());
             BigInteger value = rightOperand.remove(0);
-            if (recursion(each.get(0),value,rightOperand))passed.add(each.get(0));
+            if (recursion(each.get(0),value,rightOperand,isPartTwo))passed.add(each.get(0));
         }
         return passed;
     }
-    public static BigInteger addTrueTestValues(ArrayList<String> input){
+    public static BigInteger addTrueTestValues(ArrayList<String> input, boolean isPartOne){
         ArrayList<ArrayList<BigInteger>>preparedInput = prepareInput(input);
-        ArrayList<BigInteger> trueTestValues = findTrueTestValues(preparedInput);
+        ArrayList<BigInteger> trueTestValues = findTrueTestValues(preparedInput,isPartOne);
         BigInteger total = new BigInteger ("0");
         for (BigInteger each: trueTestValues) total = total.add(each);
         return total;
