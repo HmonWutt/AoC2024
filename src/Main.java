@@ -80,37 +80,14 @@ public class Main {
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/8/input", "dayEightInput");
         ArrayList<String> dayEightInput = scanner.loadAsArray("dayEightInput");
         ArrayList<String> matrix = new ArrayList<>(dayEightInput);
+        ArrayList<String> matrixResonant = new ArrayList<>();
         int bound = matrix.size();
-        ArrayList<Node> nodes = new ArrayList<>(Uti.getNodes(dayEightInput));
-        for (int i = 0; i <nodes.size()-1;i++) {
-            for (int j = i + 1; j < nodes.size(); j++) {
-                //System.out.println(i+","+j);
-                if (nodes.get(i).frequency.equals(nodes.get(j).frequency)) {
-                    Components parameters = new Components(nodes,i,j);
-                    int xOrigin = parameters.xOrigin;
-                    int yOrigin = parameters.yOrigin;;
-                    int xComponent = parameters.xComponent;;
-                    int yComponent = parameters.yComponent;
-                    int sameDirectionTwiceMagnitudeX = xOrigin + 2*xComponent;
-                    int sameDirectionTwiceMagnitudeY = yOrigin + 2*yComponent;
-                    if (Uti.isInBound(sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY,bound))
-                    {
-                        matrix = Uti.markAntinodes(matrix,(xOrigin + 2* xComponent),(yOrigin + 2* yComponent));
-                        Uti.printMatrix(matrix);
-                    }
-                    int oppositeDirectionSameMagnitudeX = xOrigin - xComponent;
-                    int oppositeDirectionSameMagnitudeY = yOrigin - yComponent;
-                    if (Uti.isInBound(oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY,bound))
-                    {
-                        matrix = Uti.markAntinodes(matrix,(xOrigin - xComponent),(yOrigin - yComponent) );
-                        Uti.printMatrix(matrix);
-                    }
-                }
-            }
-
-        }
-        int total = Uti.countAntinodes(matrix);
+        ArrayList<Node> nodes = Uti.getNodes(matrix);
+        matrixResonant = Uti.makeNewMatrices(nodes,dayEightInput,bound);
+        int total = Uti.countAntinodesPartTwo(matrixResonant);
+        Uti.printMatrix(matrixResonant);
         System.out.println(total);
+
    /*     String inptStr ="2333133121414131402";
         ArrayList<Integer> updatedString = new ArrayList<>(Collections.nCopies(200, 0));
         int freeSpaceStartIndex = 1;

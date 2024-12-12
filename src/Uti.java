@@ -8,13 +8,81 @@ public class Uti {
     public static int getXcomponent(Node one, Node two) {
         return one.getX() - two.getX();
     }
-    public static Antinode createAntinode(int x, int y){
-        return new Antinode(x,y);
-    }
-    public static boolean isInBound(int x, int y,int bound) {
-        return (x >=0 && x< bound && y>=0 && y<bound);
+
+    public static Antinode createAntinode(int x, int y) {
+        return new Antinode(x, y);
     }
 
+    public static boolean isInBound(int x, int y, int bound) {
+        return (x >= 0 && x < bound && y >= 0 && y < bound);
+    }
+
+    public static ArrayList<String> makeNewMatrices(ArrayList<Node> nodes ,ArrayList<String> matrix, int bound) {
+        int scalarSame = 2;
+        int sameDirectionTwiceMagnitudeX ;
+        int sameDirectionTwiceMagnitudeY;
+        int oppositeDirectionSameMagnitudeX ;
+        int oppositeDirectionSameMagnitudeY;
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            for (int j = i + 1; j < nodes.size(); j++) {
+                //System.out.println(i + "," + j);
+                if (nodes.get(i).frequency.equals(nodes.get(j).frequency)) {
+                    Components parameters = new Components(nodes, i, j);
+                    int xOrigin = parameters.xOrigin;
+                    int yOrigin = parameters.yOrigin;
+                    int xComponent = parameters.xComponent;
+                    int yComponent = parameters.yComponent;
+                    sameDirectionTwiceMagnitudeX = xOrigin + 2 * xComponent;
+                    sameDirectionTwiceMagnitudeY = yOrigin +2 * yComponent;
+                    if (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
+                        // matrix = Uti.markAntinodes(matrix,sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY);
+                        matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
+                        //Uti.printMatrix(matrix);
+                    }
+                    while (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
+                        matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
+                        //Uti.printMatrix(matrixResonant);
+                        scalarSame += 1;
+                        sameDirectionTwiceMagnitudeX = xOrigin + scalarSame * xComponent;
+                        sameDirectionTwiceMagnitudeY = yOrigin + scalarSame * yComponent;
+                        ;
+                    }
+                    oppositeDirectionSameMagnitudeX = xOrigin - xComponent;
+                    oppositeDirectionSameMagnitudeY = yOrigin - yComponent;
+                   if (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
+                        //if (isPartOne)matrix = Uti.markAntinodes(matrix,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY );
+                        matrix = Uti.markAntinodes(matrix, oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY);
+                        //Uti.printMatrix(matrix);
+                    }
+
+                    while (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
+                        matrix = Uti.markAntinodes(matrix,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY);
+                       // Uti.printMatrix(matrixResonant);
+                        oppositeDirectionSameMagnitudeX -= xComponent;
+                        oppositeDirectionSameMagnitudeY -= yComponent;
+                        ;
+                    }
+                }
+                scalarSame=2;
+            }
+        }
+        return matrix;
+        }
+
+    public static ArrayList<Node> getNotNodes(ArrayList<String> input) {
+        int bound = input.size();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (int row = 0; row < bound; row++) {
+            for (int col = 0; col < bound; col++) {
+                if (input.get(row).charAt(col) == '#') {
+                    String frequency = Character.toString(input.get(row).charAt(col));
+                    Node newNode = new Node(frequency, row, col);
+                    nodes.add(newNode);
+                }
+            }
+        }
+        return nodes;
+    }
     public static ArrayList<Node> getNodes(ArrayList<String> input) {
         int bound = input.size();
         ArrayList<Node> nodes = new ArrayList<>();
@@ -34,6 +102,17 @@ public class Uti {
         for (int row = 0; row < matrix.size() ; row++) {
             for (int col = 0; col < matrix.size(); col++) {
                 if (matrix.get(row).charAt(col) == '#') {
+                    total += 1;
+                }
+            }
+        }
+        return total;
+    }
+    public static int countAntinodesPartTwo(ArrayList<String > matrix){
+        int total = 0;
+        for (int row = 0; row < matrix.size() ; row++) {
+            for (int col = 0; col < matrix.size(); col++) {
+                if (matrix.get(row).charAt(col) != '.') {
                     total += 1;
                 }
             }
