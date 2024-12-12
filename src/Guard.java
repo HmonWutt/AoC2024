@@ -4,6 +4,9 @@ public class Guard {
     ArrayList<String> matrix;
     int X;
     int Y;
+    static int count;
+    int name;
+
     public void go(String direction) {
         if (direction == "U") {
             this.X -= 1;
