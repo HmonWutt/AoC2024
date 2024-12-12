@@ -29,11 +29,11 @@ public class Uti {
             for (int j = i + 1; j < nodes.size(); j++) {
                 //System.out.println(i + "," + j);
                 if (nodes.get(i).frequency.equals(nodes.get(j).frequency)) {
-                    Components parameters = new Components(nodes, i, j);
-                    int xOrigin = parameters.xOrigin;
-                    int yOrigin = parameters.yOrigin;
-                    int xComponent = parameters.xComponent;
-                    int yComponent = parameters.yComponent;
+                    OriginAndDistance originAndDistance = new OriginAndDistance(nodes, i, j);
+                    int xOrigin = originAndDistance.xOrigin;
+                    int yOrigin = originAndDistance.yOrigin;
+                    int xComponent = originAndDistance.xDistance;
+                    int yComponent = originAndDistance.yDistance;
                     sameDirectionTwiceMagnitudeX = xOrigin + scalarSame * xComponent;
                     sameDirectionTwiceMagnitudeY = yOrigin + scalarSame * yComponent;
                     if (isPartOne) {
@@ -55,7 +55,6 @@ public class Uti {
                             matrixPartOne = Uti.markAntinodes(matrixPartOne, oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY);
                         }
                     }
-
                     while (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
                         matrix = Uti.markAntinodes(matrix,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY);
                         oppositeDirectionSameMagnitudeX -= xComponent;
