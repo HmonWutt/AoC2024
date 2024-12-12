@@ -15,17 +15,6 @@ public class Uti {
         return (x >=0 && x< bound && y>=0 && y<bound);
     }
 
-    public static boolean isNode(ArrayList<Node> matrix, int x, int y) {
-        boolean isNode = false;
-        int index = 0;
-        while (!isNode && index < matrix.size()) {
-            isNode = matrix.get(index).getX() == x && matrix.get(index).getY() == y;
-            index += 1;
-        }
-        return isNode;
-
-    }
-
     public static ArrayList<Node> getNodes(ArrayList<String> input) {
         int bound = input.size();
         ArrayList<Node> nodes = new ArrayList<>();
@@ -40,7 +29,17 @@ public class Uti {
         }
         return nodes;
     }
-
+    public static int countAntinodes(ArrayList<String > matrix){
+        int total = 0;
+        for (int row = 0; row < matrix.size() ; row++) {
+            for (int col = 0; col < matrix.size(); col++) {
+                if (matrix.get(row).charAt(col) == '#') {
+                    total += 1;
+                }
+            }
+        }
+        return total;
+    }
     public static void printMatrix(ArrayList<String> matrix) {
         for (String each : matrix) System.out.println(each);
         System.out.println("------------------------");

@@ -93,18 +93,15 @@ public class Main {
                     int yComponent = parameters.yComponent;
                     int sameDirectionTwiceMagnitudeX = xOrigin + 2*xComponent;
                     int sameDirectionTwiceMagnitudeY = yOrigin + 2*yComponent;
-                    if (Uti.isInBound(sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY,bound) )
+                    if (Uti.isInBound(sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY,bound))
                     {
-                        //antinodes.add(Uti.createAntinode(sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY));
                         matrix = Uti.markAntinodes(matrix,(xOrigin + 2* xComponent),(yOrigin + 2* yComponent));
                         Uti.printMatrix(matrix);
                     }
                     int oppositeDirectionSameMagnitudeX = xOrigin - xComponent;
                     int oppositeDirectionSameMagnitudeY = yOrigin - yComponent;
                     if (Uti.isInBound(oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY,bound))
-                      //      && !   Uti.isNode(nodes, oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY))
                     {
-                        //antinodes.add(Uti.createAntinode(oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY));
                         matrix = Uti.markAntinodes(matrix,(xOrigin - xComponent),(yOrigin - yComponent) );
                         Uti.printMatrix(matrix);
                     }
@@ -112,15 +109,7 @@ public class Main {
             }
 
         }
-        //System.out.println("Total unique antiNodes: " + antinodes.size());
-        int total = 0;
-        for (int row = 0; row < bound; row++) {
-            for (int col = 0; col < bound; col++) {
-                if (matrix.get(row).charAt(col) == '#') {
-                    total += 1;
-                }
-            }
-        }
+        int total = Uti.countAntinodes(matrix);
         System.out.println(total);
    /*     String inptStr ="2333133121414131402";
         ArrayList<Integer> updatedString = new ArrayList<>(Collections.nCopies(200, 0));
