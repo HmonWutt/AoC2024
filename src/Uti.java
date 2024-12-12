@@ -36,12 +36,10 @@ public class Uti {
                     int yComponent = parameters.yComponent;
                     sameDirectionTwiceMagnitudeX = xOrigin + scalarSame * xComponent;
                     sameDirectionTwiceMagnitudeY = yOrigin + scalarSame * yComponent;
-                    if (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
-                        if (isPartOne) {
-                            matrixPartOne = Uti.markAntinodes(matrixPartOne,sameDirectionTwiceMagnitudeX,sameDirectionTwiceMagnitudeY);
+                    if (isPartOne) {
+                        if (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
+                            matrixPartOne = Uti.markAntinodes(matrixPartOne, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
                         }
-                        matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
-                        //Uti.printMatrix(matrix);
                     }
                     while (Uti.isInBound(sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY, bound)) {
                         matrix = Uti.markAntinodes(matrix, sameDirectionTwiceMagnitudeX, sameDirectionTwiceMagnitudeY);
@@ -52,12 +50,10 @@ public class Uti {
                     }
                     oppositeDirectionSameMagnitudeX = xOrigin - xComponent;
                     oppositeDirectionSameMagnitudeY = yOrigin - yComponent;
-                   if (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
-                        if (isPartOne){
-                            matrixPartOne = Uti.markAntinodes(matrixPartOne,oppositeDirectionSameMagnitudeX,oppositeDirectionSameMagnitudeY );
+                    if (isPartOne){
+                        if (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
+                            matrixPartOne = Uti.markAntinodes(matrixPartOne, oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY);
                         }
-                        matrix = Uti.markAntinodes(matrix, oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY);
-
                     }
 
                     while (Uti.isInBound(oppositeDirectionSameMagnitudeX, oppositeDirectionSameMagnitudeY, bound)) {
