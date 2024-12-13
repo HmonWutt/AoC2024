@@ -11,7 +11,7 @@ public class DayNineUtil {
            return value*index;
        }
 
-       public static String replaceaCharInString (String input, int indexOfReplacement, String replacment){
+       public static String replaceCharInString(String input, int indexOfReplacement, String replacment){
            String newString = "";
            for (int i=0; i <input.length(); i++){
                if (i==indexOfReplacement){
