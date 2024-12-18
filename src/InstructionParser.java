@@ -2,23 +2,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InstructionParser {
-    public String getRegister(String input){
-        ArrayList<String> inputSplit = new ArrayList<>(Arrays.asList(input.split(":")));
-        ArrayList<String> indexZero = new ArrayList<>(Arrays.asList(inputSplit.get(0).split(" ")));
-        return indexZero.get(0);
-    }
+    private ArrayList<String> opCodeAndOperand;
+    private ArrayList<Integer> instructions;
+    private ArrayList<Integer> operands;
+    public InstructionParser(String input){
+        this.opCodeAndOperand = new ArrayList<>(Arrays.asList(input.split(",")));
 
-    public ArrayList<Integer> getOperands(String input){
-        ArrayList<String> inputSplit = new ArrayList<>(Arrays.asList(input.split(":")));
-        ArrayList<String> indexOne = new ArrayList<>(Arrays.asList(inputSplit.get(1).split(" ")));
-        String str = indexOne.get(0);
+    }
+    public ArrayList<Integer> getOperands(){
         ArrayList<Integer> operands= new ArrayList<>();
-        for (int i=0;i < str.length();i++){
-            char each = str.charAt(i);
+        for (int i=1;i < this.opCodeAndOperand.size();i+=2){
+            String each = this.opCodeAndOperand.get(i);
             operands.add(Integer.parseInt(String.valueOf(each)));
         }
         return operands;
     }
-
+    public ArrayList<Integer> getInstructions(){
+        ArrayList<Integer> instructions= new ArrayList<>();
+        for (int i=0;i < this.opCodeAndOperand.size();i+=2){
+            String each = this.opCodeAndOperand.get(i);
+            instructions.add(Integer.parseInt(String.valueOf(each)));
+        }
+        return instructions;
+    }
 
 }
