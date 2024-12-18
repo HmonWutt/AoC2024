@@ -1,15 +1,15 @@
 public class Register {
-    private double value;
+    private long value;
     private String name;
-    public Register( double value){
+    public Register( long value){
         this.value = value;
     }
 
-    public void setValue(double newValue) {
+    public void setValue(long newValue) {
         this.value = newValue;
     }
 
-    public double getValue (){
+    public long getValue (){
         return this.value;
     }
 
