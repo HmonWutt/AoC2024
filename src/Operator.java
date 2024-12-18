@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Operator {
     Register A;
@@ -5,20 +6,70 @@ public class Operator {
     Register C;
     InstructionPointer IP;
     Operand operand;
+    ArrayList<Integer> instructions;
+    ArrayList<Integer> operands;
 
-    public Operator(Integer Avalue, Integer Bvalue, Integer Cvalue){
+    public Operator(Integer Avalue, Integer Bvalue, Integer Cvalue,String programme){
         this.A = new Register(Avalue);
         this.B = new Register(Bvalue);
         this.C = new Register(Cvalue);
         this.IP = new InstructionPointer();
         this.IP.setPointer(0);
-    }
-    public Integer getInstruction(){
-        return this.IP.getPointer();
-    }
+        InstructionParser parser = new InstructionParser(programme);
+        this.instructions = parser.getInstructions();
+        this.instructions.add(-1);
+        this.operands = parser.getOperands();
 
-    public void setInstruction(Integer value){
-        this.IP.setPointer(value);
+    }
+    public String execute(){
+        int i = 0;
+        String temp="";
+        while (instructions.get(i) !=-1){
+            if (instructions.get(i).equals(0)){
+                Integer operandValue = Operand.getOperandValue(operands.get(i),
+                        this.A.getValue(),
+                        this.B.getValue(),
+                        this.C.getValue());
+                opcodeZero(operandValue);
+            }
+            else if (instructions.get(i).equals(1)) opcodeOne(operands.get(i));
+            else if (instructions.get(i).equals(2)){
+                Integer operandValue = Operand.getOperandValue(operands.get(i),
+                        this.A.getValue(),
+                        this.B.getValue(),
+                        this.C.getValue());
+                opcodeTwo(operandValue);
+
+            }
+            else if (instructions.get(i).equals(3)) opcodeThree(operands.get(i));
+
+            else if (instructions.get(i).equals(4)) opcodeFour();
+
+            else if (instructions.get(i).equals(5)){
+                Integer operandValue = Operand.getOperandValue(operands.get(i),
+                        this.A.getValue(),
+                        this.B.getValue(),
+                        this.C.getValue());
+                temp += this.opcodeFive(operandValue)+",";
+
+            }
+            else if (instructions.get(i).equals(6)){
+                Integer operandValue = Operand.getOperandValue(operands.get(i),
+                        this.A.getValue(),
+                        this.B.getValue(),
+                        this.C.getValue());
+                this.opcodeSix(operandValue);
+            }
+            else if (instructions.get(i).equals(7)){
+                Integer operandValue = Operand.getOperandValue(this.operands.get(i),
+                        this.A.getValue(),
+                        this.B.getValue(),
+                        this.C.getValue());
+                opcodeSeven(operandValue);
+            }
+            i = this.IP.getPointer();
+        }
+        return temp;
     }
    public void opcodeZero(Integer comboOperand){
        Integer value = (int) (this.A.getValue()/Math.pow(2,comboOperand));
@@ -74,7 +125,5 @@ public class Operator {
         Integer currentIPCount = IP.getPointer()+1;
         this.IP.setPointer(currentIPCount);
     }
-
-
 
 }

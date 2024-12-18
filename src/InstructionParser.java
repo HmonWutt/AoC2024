@@ -2,12 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InstructionParser {
-    private ArrayList<String> opCodeAndOperand;
-    private ArrayList<Integer> instructions;
-    private ArrayList<Integer> operands;
+    private final ArrayList<String> opCodeAndOperand;
     public InstructionParser(String input){
         this.opCodeAndOperand = new ArrayList<>(Arrays.asList(input.split(",")));
-
     }
     public ArrayList<Integer> getOperands(){
         ArrayList<Integer> operands= new ArrayList<>();

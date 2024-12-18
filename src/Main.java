@@ -126,58 +126,10 @@ public class Main {
         System.out.println(total);*/
         //ArrayList<Integer> output = DayNine.fillInSpaces(inptStr);
         //System.out.println(output);
+        //////////////////////////////////////////////Day 17//////////////////////////////////////////////////
         String programme = "2,4,1,1,7,5,1,5,4,2,5,5,0,3,3,0";
-        InstructionParser parser = new InstructionParser(programme);
-        ArrayList<Integer> operands = parser.getOperands();
-        ArrayList<Integer> instructions = parser.getInstructions();
-        instructions.add(-1);
-        Operator operator = new Operator(28422061,0,0);
-        int i = 0;
-        String temp="";
-
-        while (instructions.get(i) !=-1){
-             if (instructions.get(i).equals(0)){
-                Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                operator.opcodeZero(operandValue);
-                i = operator.IP.getPointer();
-            }
-             else if (instructions.get(i).equals(1)){
-                 operator.opcodeOne(operands.get(i));
-                 i = operator.IP.getPointer();
-             }
-            else if (instructions.get(i).equals(2)){
-                Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                operator.opcodeTwo(operandValue);
-                 i = operator.IP.getPointer();
-            }
-             else if (instructions.get(i).equals(3)){
-                 //Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                 operator.opcodeThree(operands.get(i));
-                 i = operator.IP.getPointer();
-             }
-             else if (instructions.get(i).equals(4)){
-                 operator.opcodeFour();
-                 i = operator.IP.getPointer();
-             }
-            else if (instructions.get(i).equals(5)){
-                Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                 temp += operator.opcodeFive(operandValue)+",";
-                 i = operator.IP.getPointer();
-                ;
-            }
-             else if (instructions.get(i).equals(6)){
-                 Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                 operator.opcodeSix(operandValue);
-                 i = operator.IP.getPointer();
-             }
-             else if (instructions.get(i).equals(7)){
-                 Integer operandValue = Operand.getOperandValue(operands.get(i),operator.A.getValue(), operator.B.getValue(), operator.C.getValue());
-                 operator.opcodeSeven(operandValue);
-                 i = operator.IP.getPointer();
-             }
-        }
-        System.out.println(operator.A.getValue()+","+operator.B.getValue()+","+operator.C.getValue());
-        System.out.println("Part one answer: "+temp);
+        Operator operator = new Operator(28422061,0,0,programme);
+        System.out.println("Part one answer: "+operator.execute());
     }
 
     }
