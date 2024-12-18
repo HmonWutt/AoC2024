@@ -1,7 +1,7 @@
 public class Register {
-    private Integer value;
+    private double value;
     private String name;
-    public Register( Integer value){
+    public Register( double value){
         this.value = value;
     }
 
@@ -9,7 +9,7 @@ public class Register {
         this.value = newValue;
     }
 
-    public Integer getValue (){
+    public double getValue (){
         return this.value;
     }
 
