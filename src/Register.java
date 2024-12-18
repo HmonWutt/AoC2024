@@ -5,7 +5,7 @@ public class Register {
         this.value = value;
     }
 
-    public void setValue(Integer newValue) {
+    public void setValue(double newValue) {
         this.value = newValue;
     }
 
