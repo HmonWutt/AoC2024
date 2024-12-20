@@ -1,5 +1,3 @@
-import java.util.*;
-
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -128,8 +126,25 @@ public class Main {
         //System.out.println(output);
         //////////////////////////////////////////////Day 17//////////////////////////////////////////////////
         String programme = "2,4,1,1,7,5,1,5,4,2,5,5,0,3,3,0";
-        Operator operator = new Operator(28422061,0,0,programme);
-        System.out.println("Part one answer: "+operator.execute());
+
+        int len = programme.length()/2;
+        Operator operator = new Operator(0,0,0,programme);
+       // System.out.println("Part one answer: "+operator.execute());
+        long num = (long)Math.pow(10,(len))/8;
+        System.out.println(num);
+        long num2 = num-117340;
+        operator = new Operator(num,0,0,programme);
+        String output= operator.execute();
+        output = output.substring(0,output.length()-1);
+       while(!programme.equals(output)&& num >0) {
+           num= num-1;
+           operator = new Operator(num, 0, 0, programme);
+           output = operator.execute();
+           output = output.substring(0,output.length()-1);
+           if (num>num2) System.out.println(num+"\n"+output+",\n"+programme);
+       }
+
+       System.out.println(num);
     }
 
     }
