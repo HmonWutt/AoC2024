@@ -170,20 +170,19 @@ public class Main {
                 if (dictionary.containsKey(stone)) {
                     ArrayList<Long> spawns = dictionary.get(stone);
                     for (Long spawn : spawns) {
-                        Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
+                        DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
                     }
                 } else{
-                    Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesNotInDict,stone,numOfParent);
+                    DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesNotInDict,stone,numOfParent);
                 }
             }
             if (!stonesNotInDict.isEmpty()) {
                 for (Long each : stonesNotInDict.keySet()) {
                     ArrayList<Long> spawns = Stone.transform(each);
                     Long numOfParent = stonesNotInDict.get(each);
-
                     dictionary.put(each, spawns);
                     for (Long spawn : spawns) {
-                        Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
+                        DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
                     }
                 }
             }

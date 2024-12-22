@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Stone {
     public static ArrayList<Long> transform(Long number){
@@ -23,12 +22,5 @@ public class Stone {
         }
         return stones;
     }
-    public static void findTargetInDictAndAddIfNotAlreadyExists(HashMap<Long, Long> dict, Long target, Long numOfParent){
-        if (dict.containsKey(target)) {
-            Long count = dict.get(target);
-            dict.put(target, count + numOfParent);
-        } else {
-            dict.put(target, numOfParent);
-        }
-    }
+
 }

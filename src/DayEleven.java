@@ -24,4 +24,12 @@ public class DayEleven {
        // }
         return stones;
     }
+    public static void findTargetInDictAndAddIfNotAlreadyExists(HashMap<Long, Long> dict, Long target, Long numOfParent){
+        if (dict.containsKey(target)) {
+            Long count = dict.get(target);
+            dict.put(target, count + numOfParent);
+        } else {
+            dict.put(target, numOfParent);
+        }
+    }
 }
