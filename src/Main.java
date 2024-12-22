@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -163,36 +164,43 @@ public class Main {
         HashMap<Long, ArrayList<Long>> dictionary = new HashMap<>();
         HashMap<Long, Long> stonesNotInDict = new HashMap<>();
         HashMap<Long, Long> stonesInDict = new HashMap<>();
-        while (blinks < 25) {
+        while (blinks < 5) {
             for (Long stone : stones.keySet()) {
+                Long numOfParent = stones.get(stone);
                 if (dictionary.containsKey(stone)) {
                     ArrayList<Long> spawns = dictionary.get(stone);
-                    Long numOfEachSpawn = stones.get(stone);
+
                     for (Long spawn : spawns) {
                         if (stonesInDict.containsKey(spawn)) {
                             Long count = stonesInDict.get(spawn);
-                            stonesInDict.put(spawn, count + numOfEachSpawn);
+                            stonesInDict.put(spawn, count + numOfParent);
                         } else {
-                            stonesInDict.put(spawn, numOfEachSpawn);
+                            stonesInDict.put(spawn, numOfParent);
                         }
                     }
                 } else{
                     if (stonesNotInDict.containsKey(stone)) {
                         Long count = stonesNotInDict.get(stone);
-                        stonesNotInDict.put(stone, count + 1);
+                        stonesNotInDict.put(stone, count + numOfParent);
                     } else {
-                        stonesNotInDict.put(stone, 1L);
+                        stonesNotInDict.put(stone, numOfParent);
                     }
                 }
             }
             if (!stonesNotInDict.isEmpty()) {
                 for (Long each : stonesNotInDict.keySet()) {
                     ArrayList<Long> spawns = Stone.transform(each);
+                    Long numOfParent = stonesNotInDict.get(each);
+
                     dictionary.put(each, spawns);
                     for (Long spawn : spawns) {
-                            Long count = stonesNotInDict.get(each);
-                            stonesInDict.put(spawn, count );
 
+                        if (stonesInDict.containsKey(spawn)) {
+                            Long count = stonesInDict.get(spawn);
+                            stonesInDict.put(spawn, count + numOfParent);
+                        } else {
+                            stonesInDict.put(spawn, numOfParent);
+                        }
                     }
                 }
             }
@@ -203,11 +211,15 @@ public class Main {
                 stonesNotInDict.clear();
                 stonesInDict.clear();
                 blinks += 1;
-                System.out.println(stones.size());
- /*   for (Stone each: stones){
-        System.out.println(each.number);
-    }*/
+                //System.out.println(blinks+","+stones.size());
+
             }
+        Long total = 0L;
+        for ( Long key : stones.keySet()){
+            total+=stones.get(key);
+            System.out.println(key+","+stones.get(key));
+        }
+        System.out.println(total);
 
         }
 }
