@@ -159,49 +159,8 @@ public class Main {
         // Day10Recursion.countTrails(dayTenInputRaw);
         String input = "337 42493 1891760 351136 2 6932 73 0";
         //String input = "125 17";
-        HashMap<Long, Long> stones = DayEleven.makeStones(input);
-        Integer blinks = 0;
-        HashMap<Long, ArrayList<Long>> dictionary = new HashMap<>();
-        HashMap<Long, Long> stonesNotInDict = new HashMap<>();
-        HashMap<Long, Long> stonesInDict = new HashMap<>();
-        while (blinks < 75) {
-            for (Long stone : stones.keySet()) {
-                Long numOfParent = stones.get(stone);
-                if (dictionary.containsKey(stone)) {
-                    ArrayList<Long> spawns = dictionary.get(stone);
-                    for (Long spawn : spawns) {
-                        DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
-                    }
-                } else{
-                    DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesNotInDict,stone,numOfParent);
-                }
-            }
-            if (!stonesNotInDict.isEmpty()) {
-                for (Long each : stonesNotInDict.keySet()) {
-                    ArrayList<Long> spawns = Stone.transform(each);
-                    Long numOfParent = stonesNotInDict.get(each);
-                    dictionary.put(each, spawns);
-                    for (Long spawn : spawns) {
-                        DayEleven.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
-                    }
-                }
-            }
-            stones.clear();
-            for (Long key : stonesInDict.keySet()) {
-                stones.put(key, stonesInDict.get(key)); // Use copy constructor for deep clone
-            }
-                stonesNotInDict.clear();
-                stonesInDict.clear();
-                blinks += 1;
-                //System.out.println(blinks+","+stones.size());
-
-            }
-        Long total = 0L;
-        for ( Long key : stones.keySet()){
-            total+=stones.get(key);
-            //System.out.println(key+","+stones.get(key));
-        }
-        System.out.println(total);
-
-        }
+        Integer limitPartOne = 25;
+        Integer limitPartTwo = 75;
+        DayEleven.printTotalSpawns(limitPartTwo, input);
+    }
 }
