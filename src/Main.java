@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
+
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -148,20 +153,61 @@ public class Main {
 
        System.out.println(num);*/
 
-       // inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input", "dayTwoInput");
+        // inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input", "dayTwoInput");
         ArrayList<String> dayTenInputRaw = scanner.loadAsArray("dayTenTest");
         // Day10Recursion.countTrails(dayTenInputRaw);
-        String input = "337 42493 1891760 351136 2 6932 73 0";
-        //String input = "125 17";
-       ArrayList<Stone>  stones = DayEleven.makeStones(input);
-       Integer blinks = 0;
-       while (blinks<25){
-           stones = new ArrayList<>(DayEleven.transformStones(stones));
-           blinks+=1;
-       }
-       System.out.println(stones.size());
+        //String input = "337 42493 1891760 351136 2 6932 73 0";
+        String input = "125 17";
+        HashMap<Long, Long> stones = DayEleven.makeStones(input);
+        Integer blinks = 0;
+        HashMap<Long, ArrayList<Long>> dictionary = new HashMap<>();
+        HashMap<Long, Long> stonesNotInDict = new HashMap<>();
+        HashMap<Long, Long> stonesInDict = new HashMap<>();
+        while (blinks < 25) {
+            for (Long stone : stones.keySet()) {
+                if (dictionary.containsKey(stone)) {
+                    ArrayList<Long> spawns = dictionary.get(stone);
+                    Long numOfEachSpawn = stones.get(stone);
+                    for (Long spawn : spawns) {
+                        if (stonesInDict.containsKey(spawn)) {
+                            Long count = stonesInDict.get(spawn);
+                            stonesInDict.put(spawn, count + numOfEachSpawn);
+                        } else {
+                            stonesInDict.put(spawn, numOfEachSpawn);
+                        }
+                    }
+                } else{
+                    if (stonesNotInDict.containsKey(stone)) {
+                        Long count = stonesNotInDict.get(stone);
+                        stonesNotInDict.put(stone, count + 1);
+                    } else {
+                        stonesNotInDict.put(stone, 1L);
+                    }
+                }
+            }
+            if (!stonesNotInDict.isEmpty()) {
+                for (Long each : stonesNotInDict.keySet()) {
+                    ArrayList<Long> spawns = Stone.transform(each);
+                    dictionary.put(each, spawns);
+                    for (Long spawn : spawns) {
+                            Long count = stonesNotInDict.get(each);
+                            stonesInDict.put(spawn, count );
 
-    }
+                    }
+                }
+            }
+            stones.clear();
+            for (Long key : stonesInDict.keySet()) {
+                stones.put(key, stonesInDict.get(key)); // Use copy constructor for deep clone
+            }
+                stonesNotInDict.clear();
+                stonesInDict.clear();
+                blinks += 1;
+                System.out.println(stones.size());
+ /*   for (Stone each: stones){
+        System.out.println(each.number);
+    }*/
+            }
 
-
+        }
 }
