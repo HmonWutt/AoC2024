@@ -157,34 +157,23 @@ public class Main {
         // inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input", "dayTwoInput");
         ArrayList<String> dayTenInputRaw = scanner.loadAsArray("dayTenTest");
         // Day10Recursion.countTrails(dayTenInputRaw);
-        //String input = "337 42493 1891760 351136 2 6932 73 0";
-        String input = "125 17";
+        String input = "337 42493 1891760 351136 2 6932 73 0";
+        //String input = "125 17";
         HashMap<Long, Long> stones = DayEleven.makeStones(input);
         Integer blinks = 0;
         HashMap<Long, ArrayList<Long>> dictionary = new HashMap<>();
         HashMap<Long, Long> stonesNotInDict = new HashMap<>();
         HashMap<Long, Long> stonesInDict = new HashMap<>();
-        while (blinks < 5) {
+        while (blinks < 75) {
             for (Long stone : stones.keySet()) {
                 Long numOfParent = stones.get(stone);
                 if (dictionary.containsKey(stone)) {
                     ArrayList<Long> spawns = dictionary.get(stone);
-
                     for (Long spawn : spawns) {
-                        if (stonesInDict.containsKey(spawn)) {
-                            Long count = stonesInDict.get(spawn);
-                            stonesInDict.put(spawn, count + numOfParent);
-                        } else {
-                            stonesInDict.put(spawn, numOfParent);
-                        }
+                        Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
                     }
                 } else{
-                    if (stonesNotInDict.containsKey(stone)) {
-                        Long count = stonesNotInDict.get(stone);
-                        stonesNotInDict.put(stone, count + numOfParent);
-                    } else {
-                        stonesNotInDict.put(stone, numOfParent);
-                    }
+                    Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesNotInDict,stone,numOfParent);
                 }
             }
             if (!stonesNotInDict.isEmpty()) {
@@ -194,13 +183,7 @@ public class Main {
 
                     dictionary.put(each, spawns);
                     for (Long spawn : spawns) {
-
-                        if (stonesInDict.containsKey(spawn)) {
-                            Long count = stonesInDict.get(spawn);
-                            stonesInDict.put(spawn, count + numOfParent);
-                        } else {
-                            stonesInDict.put(spawn, numOfParent);
-                        }
+                        Stone.findTargetInDictAndAddIfNotAlreadyExists(stonesInDict,spawn,numOfParent);
                     }
                 }
             }
@@ -217,7 +200,7 @@ public class Main {
         Long total = 0L;
         for ( Long key : stones.keySet()){
             total+=stones.get(key);
-            System.out.println(key+","+stones.get(key));
+            //System.out.println(key+","+stones.get(key));
         }
         System.out.println(total);
 
