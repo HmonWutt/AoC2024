@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -61,10 +63,10 @@ public class Main {
         //System.out.println("All pages in order: "+all.checkPagesInOrder());
         //for(String each:all.bottomHalf)System.out.println(each);
         //////////////////////////////////////////Day SIX///////////////////////////////////////
-       // inputDownloader.downloadInput("https://adventofcode.com/2024/day/6/input", "daySixInput");
+        // inputDownloader.downloadInput("https://adventofcode.com/2024/day/6/input", "daySixInput");
         //ArrayList<String> daySixInput = scanner.loadAsArray("daySixInput");
         //Guard guard = new Guard();
-         //guard.navigateMatrix(daySixInput, true);
+        //guard.navigateMatrix(daySixInput, true);
         //System.out.println("unique spots: "+numberOfUniqueSpots);
         //guard.decidePositionOfObsticle(daySixInput);
         /////////////////////////////////Day Eight////////////////////////////////
@@ -90,8 +92,8 @@ public class Main {
         Uti.printMatrix(matrixResonant);
         System.out.println("Part two answer: "+total);*/
         ////////////////////////////////////////////////////Day Nine/////////////////////////////////////////////////
-       //inputDownloader.downloadInput("https://adventofcode.com/2024/day/9/input", "dayNineInput");
-       // String dayNineInput = scanner.loadAsString("dayNineInput");
+        //inputDownloader.downloadInput("https://adventofcode.com/2024/day/9/input", "dayNineInput");
+        // String dayNineInput = scanner.loadAsString("dayNineInput");
         //String inptStr ="2333133121414131402";
         /*String newString = DayNine.constructString(inptStr);
         //String newString = DayNine.constructString(dayNineInput);
@@ -125,7 +127,7 @@ public class Main {
         //ArrayList<Integer> output = DayNine.fillInSpaces(inptStr);
         //System.out.println(output);
         //////////////////////////////////////////////Day 17//////////////////////////////////////////////////
-        String programme = "2,4,1,1,7,5,1,5,4,2,5,5,0,3,3,0";
+/*        String programme = "2,4,1,1,7,5,1,5,4,2,5,5,0,3,3,0";
 
         int len = programme.length()/2;
         Operator operator = new Operator(0,0,0,programme);
@@ -144,7 +146,22 @@ public class Main {
            if (num>num2) System.out.println(num+"\n"+output+",\n"+programme);
        }
 
-       System.out.println(num);
-    }
+       System.out.println(num);*/
+
+       // inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input", "dayTwoInput");
+        ArrayList<String> dayTenInputRaw = scanner.loadAsArray("dayTenTest");
+        // Day10Recursion.countTrails(dayTenInputRaw);
+        String input = "337 42493 1891760 351136 2 6932 73 0";
+        //String input = "125 17";
+       ArrayList<Stone>  stones = DayEleven.makeStones(input);
+       Integer blinks = 0;
+       while (blinks<25){
+           stones = new ArrayList<>(DayEleven.transformStones(stones));
+           blinks+=1;
+       }
+       System.out.println(stones.size());
 
     }
+
+
+}
