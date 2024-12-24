@@ -1,9 +1,5 @@
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-
+import java.util.*;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -155,12 +151,23 @@ public class Main {
        System.out.println(num);*/
 
         // inputDownloader.downloadInput("https://adventofcode.com/2024/day/2/input", "dayTwoInput");
-        ArrayList<String> dayTenInputRaw = scanner.loadAsArray("dayTenTest");
+     /*   ArrayList<String> dayTenInputRaw = scanner.loadAsArray("dayTenTest");
         // Day10Recursion.countTrails(dayTenInputRaw);
         String input = "337 42493 1891760 351136 2 6932 73 0";
         //String input = "125 17";
         Integer limitPartOne = 25;
         Integer limitPartTwo = 75;
         DayEleven.printTotalSpawns(limitPartTwo, input);
+*/
+        inputDownloader.downloadInput("https://adventofcode.com/2024/day/12/input", "dayTwelveInput");
+        ArrayList<String> dayTwelveInputRaw = scanner.loadAsArray("dayTwelveInput");
+        HashMap<Integer, ArrayList<Integer>> dictionary = GardenGroup.findGroups(dayTwelveInputRaw,0,0);
+        Integer total = 0;
+        for (Map.Entry<Integer, ArrayList<Integer>> entry : dictionary.entrySet()) {// Get the key
+            ArrayList<Integer> values = entry.getValue(); // Get the value
+            total+=(values.get(0)*values.get(1));
+        }
+        System.out.println(total);
     }
+
 }
