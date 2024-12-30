@@ -31,5 +31,16 @@ public class ReadFromFileUsingScanner {
 
         return output;
     }
+    public String keepLineBreaks(String filename) throws Exception{
+        File file = new File(new File(System.getProperty("user.dir")) + "/" + filename);
+        //System.out.println(System.getProperty("user.dir") + "/" +filename);
+        Scanner sc = new Scanner(file);
+        StringBuilder output = new StringBuilder();
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            output.append(line).append("\n");  // Append the line and then a newline character
+        }
+        return output.toString();
+    }
 
 }
