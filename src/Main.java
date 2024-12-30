@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -187,8 +188,10 @@ public class Main {
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/13/input", "dayThirteenInput");
         String dayThirteenInputRaw = scanner.keepLineBreaks("dayThirteenInput");
         ArrayList<String> input = new ArrayList<>(Arrays.asList(dayThirteenInputRaw.split("\n\s*\n")));
-        Integer totalTokens = DayThirteen.countTokens(input);
+        Object totalTokens = DayThirteen.countTokens(input,false);
         System.out.println("Day 13 part one: "+totalTokens);
+        Object hugeTotalTokens = DayThirteen.countTokens(input,true) ;
+        System.out.println("Day 13 part two: "+hugeTotalTokens);
     }
 
 }
