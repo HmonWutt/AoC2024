@@ -183,31 +183,12 @@ public class Main {
                 "Button A: X+69, Y+23\n" +
                 "Button B: X+27, Y+71\n" +
                 "Prize: X=18641, Y=10279";
+        //ArrayList<String> input = new ArrayList<>(Arrays.asList(string.split("\n\s*\n")));
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/13/input", "dayThirteenInput");
         String dayThirteenInputRaw = scanner.keepLineBreaks("dayThirteenInput");
-        System.out.println(dayThirteenInputRaw);
         ArrayList<String> input = new ArrayList<>(Arrays.asList(dayThirteenInputRaw.split("\n\s*\n")));
-        Integer totalTokens = 0;
-        //ArrayList<String> input = new ArrayList<>(Arrays.asList(string.split("\n\s*\n")));
-        for (String each: input){
-            ArrayList<Integer> eachSetOfEquations = Regex.getNumbers(each);
-
-            ArrayList<Integer> firstEquaiton = new ArrayList<>();
-            ArrayList<Integer> secondEquation = new ArrayList<>();
-            for (int i = 0; i < 6;i++){
-
-                if (i%2==0){
-                    firstEquaiton.add(eachSetOfEquations.get(i));
-                }
-                else{
-                    secondEquation.add(eachSetOfEquations.get(i));
-                }
-            }
-            if (SolveEquation.solve(firstEquaiton,secondEquation)>0)
-                totalTokens+=SolveEquation.solve(firstEquaiton,secondEquation);
-
-        }
-        System.out.println(totalTokens);
+        Integer totalTokens = DayThirteen.countTokens(input);
+        System.out.println("Day 13 part one: "+totalTokens);
     }
 
 }
