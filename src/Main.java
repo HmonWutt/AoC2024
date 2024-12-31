@@ -169,29 +169,38 @@ public class Main {
             total+=(values.get(0)*values.get(1));
         }
         System.out.println(total);*/
-        String string = "Button A: X+94, Y+34\n" +
-                "Button B: X+22, Y+67\n" +
-                "Prize: X=8400, Y=5400\n" +
-                "\n" +
-                "Button A: X+26, Y+66\n" +
-                "Button B: X+67, Y+21\n" +
-                "Prize: X=12748, Y=12176\n" +
-                "\n" +
-                "Button A: X+17, Y+86\n" +
-                "Button B: X+84, Y+37\n" +
-                "Prize: X=7870, Y=6450\n" +
-                "\n" +
-                "Button A: X+69, Y+23\n" +
-                "Button B: X+27, Y+71\n" +
-                "Prize: X=18641, Y=10279";
-        //ArrayList<String> input = new ArrayList<>(Arrays.asList(string.split("\n\s*\n")));
+  /*
         inputDownloader.downloadInput("https://adventofcode.com/2024/day/13/input", "dayThirteenInput");
         String dayThirteenInputRaw = scanner.keepLineBreaks("dayThirteenInput");
         ArrayList<String> input = new ArrayList<>(Arrays.asList(dayThirteenInputRaw.split("\n\s*\n")));
         Object totalTokens = DayThirteen.countTokens(input,false);
         System.out.println("Day 13 part one: "+totalTokens);
         Object hugeTotalTokens = DayThirteen.countTokens(input,true) ;
-        System.out.println("Day 13 part two: "+hugeTotalTokens);
+        System.out.println("Day 13 part two: "+hugeTotalTokens);*/
+        inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
+
+        ArrayList<String> dayFourteenInputRaw = scanner.loadAsArray("dayFourteenInput");
+
+        ArrayList<ArrayList<Integer>> robotDetails = new ArrayList<>();
+        ArrayList<Robot> allRobots = new ArrayList<>();
+        /*Integer height = 6;///for test
+        Integer width = 10;*/
+        Integer height = 102;
+        Integer width = 100;
+        for (String each:dayFourteenInputRaw){
+            ArrayList<Integer> coordinates = Regex.getNumbersWithSigns(each);
+            Integer startingX = coordinates.get(0);
+            Integer startingY = coordinates.get(1);
+            Integer movingX =  coordinates.get(2);
+            Integer movingY = coordinates.get(3);
+            Robot newRobot = new Robot(startingX,startingY,movingX,movingY,height,width);
+            allRobots.add(newRobot);
+            ;
+        }
+        Board newBoard = new Board(height,width);
+        System.out.println(newBoard.countRobots(100,allRobots));
+
+
     }
 
 }
