@@ -13,4 +13,14 @@ public class Regex {
         };
         return output;
     }
+    public static ArrayList<Integer> getNumbersWithSigns(String string) {
+        ArrayList<Integer> output = new ArrayList<>();
+        String rg = "[+-]?(\\d+)";
+        Pattern pattern = Pattern.compile(rg);
+        Matcher match = pattern.matcher(string);
+        while (match.find()) {
+            output.add(Integer.parseInt(match.group()));
+        };
+        return output;
+    }
 }
