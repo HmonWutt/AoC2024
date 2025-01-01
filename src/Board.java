@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Board {
     private Quadrant quartOne;
@@ -25,19 +26,27 @@ public class Board {
     }
     public Integer countRobots(Integer X, ArrayList<Robot> allRobots){
         moveRobotsXnumberOfTimes(X,allRobots);
+        Integer count = 0;
         for (Robot each:allRobots){
             checkRobotsInEachQuadrant(each);
             Integer occupiedPositionsInOne = this.quartOne.countNumberOfOccupiedPositions();
             Integer occupiedPositionsInTwo = this.quartTwo.countNumberOfOccupiedPositions();
             Integer occupiedPositionsInThree = this.quartThree.countNumberOfOccupiedPositions();
             Integer occupiedPositionsInFour = this.quartFour.countNumberOfOccupiedPositions();
-            System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
+            count+=1;
+           // System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
+            if (Objects.equals(occupiedPositionsInOne, occupiedPositionsInTwo) &&
+                Objects.equals(occupiedPositionsInThree, occupiedPositionsInFour) &&
+                    occupiedPositionsInOne < occupiedPositionsInThree) {
+                System.out.println("Number of iterations: "+count);
+                System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
+               // return count;
+            }
         }
         Integer robotsInOne = this.quartOne.countRobotsInQuadrant();
         Integer robotsInTwo = this.quartTwo.countRobotsInQuadrant();
         Integer robotsInThree = this.quartThree.countRobotsInQuadrant();
         Integer robotsInFour = this.quartFour.countRobotsInQuadrant();
-
         return robotsInOne * robotsInTwo * robotsInThree * robotsInFour;
     }
 
