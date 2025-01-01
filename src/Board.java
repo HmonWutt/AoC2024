@@ -27,11 +27,17 @@ public class Board {
         moveRobotsXnumberOfTimes(X,allRobots);
         for (Robot each:allRobots){
             checkRobotsInEachQuadrant(each);
+            Integer occupiedPositionsInOne = this.quartOne.countNumberOfOccupiedPositions();
+            Integer occupiedPositionsInTwo = this.quartTwo.countNumberOfOccupiedPositions();
+            Integer occupiedPositionsInThree = this.quartThree.countNumberOfOccupiedPositions();
+            Integer occupiedPositionsInFour = this.quartFour.countNumberOfOccupiedPositions();
+            System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
         }
         Integer robotsInOne = this.quartOne.countRobotsInQuadrant();
         Integer robotsInTwo = this.quartTwo.countRobotsInQuadrant();
         Integer robotsInThree = this.quartThree.countRobotsInQuadrant();
         Integer robotsInFour = this.quartFour.countRobotsInQuadrant();
+
         return robotsInOne * robotsInTwo * robotsInThree * robotsInFour;
     }
 

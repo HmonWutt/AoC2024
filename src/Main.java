@@ -197,8 +197,15 @@ public class Main {
             allRobots.add(newRobot);
             ;
         }
+        System.out.println("Number of robots: "+ allRobots.size());
         Board newBoard = new Board(height,width);
         System.out.println(newBoard.countRobots(100,allRobots));
+       /* Integer total = 0;
+        for (int i = 0;i<height;i++){
+            total+=(2*i+1);
+            System.out.println(2*i+1);
+        }
+        System.out.println(total);*/
 
 
     }
