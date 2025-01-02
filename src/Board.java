@@ -34,13 +34,13 @@ public class Board {
             Integer occupiedPositionsInThree = this.quartThree.countNumberOfOccupiedPositions();
             Integer occupiedPositionsInFour = this.quartFour.countNumberOfOccupiedPositions();
             count+=1;
-           // System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-            if (Objects.equals(occupiedPositionsInOne, occupiedPositionsInTwo) &&
-                Objects.equals(occupiedPositionsInThree, occupiedPositionsInFour) &&
+           //System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
+            if ((occupiedPositionsInOne== occupiedPositionsInTwo) &&
+               (occupiedPositionsInThree == occupiedPositionsInFour) &&
                     occupiedPositionsInOne < occupiedPositionsInThree) {
-                System.out.println("Number of iterations: "+count);
+             System.out.println("Number of iterations: "+count);
                 System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-               // return count;
+                //return count;
             }
         }
         Integer robotsInOne = this.quartOne.countRobotsInQuadrant();
