@@ -187,28 +187,11 @@ public class Main {
         Integer width = 10;*/
         Integer height = 102;
         Integer width = 100;
-        for (String each:dayFourteenInputRaw){
-            ArrayList<Integer> coordinates = Regex.getNumbersWithSigns(each);
-            Integer startingX = coordinates.get(0);
-            Integer startingY = coordinates.get(1);
-            Integer movingX =  coordinates.get(2);
-            Integer movingY = coordinates.get(3);
-            Robot newRobot = new Robot(startingX,startingY,movingX,movingY,height,width);
-            allRobots.add(newRobot);
-            ;
-        }
         Board newBoard = new Board(height,width);
-        //System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
-        newBoard.findXmasTree(20000,allRobots);
-        String[][] matrix = {
-                {"#", "#", "#", "#"},
-                {".", "#", ".", "#"},
-                {"#", "#", ".", "#"},
-                {".", ".", "#", "#"}
-        };
-        Integer count = XmasTree.countNeighbours(3,2,matrix);
-        //System.out.println(count);
-
+        ArrayList<Robot> robotsGroupOne = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
+        System.out.println("Part one answer: "+newBoard.countRobots(100,robotsGroupOne));
+        ArrayList<Robot> robotsGroupTwo = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
+        newBoard.findXmasTree(20000,robotsGroupTwo);
 
     }
 

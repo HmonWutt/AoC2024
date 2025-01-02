@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Random;
 
 public class Board {
     private Quadrant quartOne;
@@ -45,27 +42,15 @@ public class Board {
         switch (quadrantName) {
             case "one":
                 this.quartOne.addRobot(newRobot);
-                this.quartFour.removeRobot(newRobot);
-                this.quartTwo.removeRobot(newRobot);
-                this.quartThree.removeRobot(newRobot);
                 break;
             case "two":
                 this.quartTwo.addRobot(newRobot);
-                this.quartOne.removeRobot(newRobot);
-                this.quartThree.removeRobot(newRobot);
-                this.quartFour.removeRobot(newRobot);
                 break;
             case "three":
                 this.quartThree.addRobot(newRobot);
-                this.quartOne.removeRobot(newRobot);
-                this.quartTwo.removeRobot(newRobot);
-                this.quartFour.removeRobot(newRobot);
                 break;
             default:
                 this.quartFour.addRobot(newRobot);
-                this.quartOne.removeRobot(newRobot);
-                this.quartTwo.removeRobot(newRobot);
-                this.quartThree.removeRobot(newRobot);
         }
 
     }
@@ -81,26 +66,18 @@ public class Board {
             for (Robot each : allRobots) {
                 each.updatePosition();
             }
-
             String[][] matrix = new String[this.width + 1][this.height + 1];
-            for (int i = 0; i < matrix.length; i++) {         // Loop through rows
-                for (int j = 0; j < matrix[i].length; j++) {  // Loop through columns
-                    matrix[i][j] = ".";
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    matrix[i][j] = ".";///row and col switched to make tree upright
                 }
             }
             for (Robot each : allRobots) {
                 matrix[each.getCurrentX()][each.getCurrentY()] = "#";
             }
 
-            Random random = new Random();
-
-            // Random integer between 0 and 100
-            int randomInt = random.nextInt(101);
             Robot firstRobot = allRobots.get(0);
-
-
             Integer count = XmasTree.countNeighbours( firstRobot.getCurrentX(),firstRobot.getCurrentY(), matrix);
-            //System.out.println(count);
             if (count>15){
                 System.out.println("iteration: "+i1+","+count);
                 for (int i =( matrix.length/2)-2; i < matrix.length; i++) {         // Loop through rows
@@ -111,7 +88,6 @@ public class Board {
                 }
                 System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             }
-
         }
     }
     public void checkRobotsInEachQuadrant(Robot newRobot){
@@ -131,23 +107,19 @@ public class Board {
         if ((robotX>= firstQuadrantStartX && robotX<= firstQuadrantEndX) &&
             (robotY>= firstQuadrantStartY && robotY<= firstQuadrantEndY)){
             addRobotToQuadrant("one", newRobot);
-            this.quartOne.addRobotPositionToQuadrant(newRobot);
 
         }
         else if ((robotX>= secondQuadrantStartX && robotX<= secondQuadrantEndX) &&
                 (robotY>= firstQuadrantStartY && robotY<= firstQuadrantEndY)){
             addRobotToQuadrant("two", newRobot);
-            this.quartTwo.addRobotPositionToQuadrant(newRobot);
         }
         else if ((robotX>= firstQuadrantStartX && robotX<= firstQuadrantEndX) &&
                 (robotY>= thirdQuadrantStartY && robotY<= thirdQuadrantEndY)){
             addRobotToQuadrant("three", newRobot);
-            this.quartThree.addRobotPositionToQuadrant(newRobot);
         }
         else if ((robotX>= secondQuadrantStartX && robotX<= secondQuadrantEndX) &&
                 (robotY>= thirdQuadrantStartY && robotY<= thirdQuadrantEndY)){
             addRobotToQuadrant("four", newRobot);
-            this.quartFour.addRobotPositionToQuadrant(newRobot);
         }
 
     }

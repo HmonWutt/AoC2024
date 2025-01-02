@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 public class Robot {
-    private Integer originalX;
-    private Integer getOriginalY;
     private Integer currentX;
     private Integer currentY;
     private Integer movementX;
