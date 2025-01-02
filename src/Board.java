@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
 
 public class Board {
     private Quadrant quartOne;
@@ -69,7 +70,7 @@ public class Board {
 
     }
     public void moveRobotsXnumberOfTimes(Integer X,ArrayList<Robot> allRobots){
-        for (int i = 1; i<X; i++){
+        for (int i = 0; i<X; i++){
             for(Robot each:allRobots){
                 each.updatePosition();
             }
@@ -90,10 +91,17 @@ public class Board {
             for (Robot each : allRobots) {
                 matrix[each.getCurrentX()][each.getCurrentY()] = "#";
             }
+
+            Random random = new Random();
+
+            // Random integer between 0 and 100
+            int randomInt = random.nextInt(101);
             Robot firstRobot = allRobots.get(0);
-            Integer count = XmasTree.countNeighbours(firstRobot.getCurrentX(), firstRobot.getCurrentY(), matrix);
+
+
+            Integer count = XmasTree.countNeighbours( firstRobot.getCurrentX(),firstRobot.getCurrentY(), matrix);
             //System.out.println(count);
-            if (count>50){
+            if (count>15){
                 System.out.println("iteration: "+i1+","+count);
                 for (int i =( matrix.length/2)-2; i < matrix.length; i++) {         // Loop through rows
                     for (int j = ( matrix.length/2)-(matrix.length/4);j<( matrix.length/2)+(matrix.length/2); j++) {  // Loop through columns
