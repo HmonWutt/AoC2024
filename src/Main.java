@@ -177,7 +177,7 @@ public class Main {
         System.out.println("Day 13 part one: "+totalTokens);
         Object hugeTotalTokens = DayThirteen.countTokens(input,true) ;
         System.out.println("Day 13 part two: "+hugeTotalTokens);*/
-        inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
+       // inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
 
         ArrayList<String> dayFourteenInputRaw = scanner.loadAsArray("dayFourteenInput");
 
@@ -197,17 +197,17 @@ public class Main {
             allRobots.add(newRobot);
             ;
         }
-       // System.out.println("Number of robots: "+ allRobots.size());
         Board newBoard = new Board(height,width);
-        //System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
-
-       /* Integer total = 0;
-        for (int i = 0;i<height;i++){
-            total+=(2*i+1);
-            System.out.println(2*i+1);
-        }
-        System.out.println(total);*/
-        newBoard.moveRobotsXnumberOfTimes(1000000,allRobots);
+        System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
+        newBoard.findXmasTree(20000,allRobots);
+        String[][] matrix = {
+                {"#", "#", "#", "#"},
+                {".", "#", ".", "#"},
+                {"#", "#", ".", "#"},
+                {".", ".", "#", "#"}
+        };
+        Integer count = XmasTree.countNeighbours(3,2,matrix);
+        //System.out.println(count);
 
 
     }

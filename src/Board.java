@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Board {
@@ -9,7 +10,7 @@ public class Board {
     private final Integer height;
     private final Integer width;
 
-    public Board(Integer height, Integer width){
+    public Board(Integer height, Integer width) {
         this.quartOne = new Quadrant("One");
         this.quartTwo = new Quadrant("Two");
         this.quartThree = new Quadrant("Three");
@@ -18,64 +19,28 @@ public class Board {
         this.height = height;
 
     }
-    public Integer getWidth(){
+
+    public Integer getWidth() {
         return this.width;
     }
-    public Integer getHeight(){
+
+    public Integer getHeight() {
         return this.height;
     }
-    public Integer countRobots(Integer X, ArrayList<Robot> allRobots){
-        moveRobotsXnumberOfTimes(X,allRobots);
 
-      /*   String [][] matrix = new String[this.width+1][this.height+1];
-       for (int i = 0; i < matrix.length; i++) {         // Loop through rows
-            for (int j = 0; j < matrix[i].length; j++) {  // Loop through columns
-                matrix[i][j] =".";
-            }
-        }*/
-        /*for (Robot each:allRobots){
+    public Integer countRobots(Integer X, ArrayList<Robot> allRobots) {
+        moveRobotsXnumberOfTimes(X, allRobots);
+        for (Robot each : allRobots) {
             checkRobotsInEachQuadrant(each);
-            Integer occupiedPositionsInOne = this.quartOne.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInTwo = this.quartTwo.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInThree = this.quartThree.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInFour = this.quartFour.countNumberOfOccupiedPositions();
-            if ((occupiedPositionsInOne== occupiedPositionsInTwo) &&
-                    (occupiedPositionsInThree == occupiedPositionsInFour) &&
-                    occupiedPositionsInOne < occupiedPositionsInThree) {
-                System.out.println("Number of iterations: "+count);
-                System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-                //return count;
-            }*/
-
-
-          /*  if (count>45000) {
-                matrix[each.getCurrentX()][each.getCurrentY()] = "#";
-                for (int i = 0; i < matrix.length / 2; i++) {         // Loop through rows
-                    for (int j = 0; j < matrix[i].length / 2; j++) {  // Loop through columns
-                        System.out.print(matrix[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-            }
-            //System.out.println(occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-
-        }*/
-
+        }
         Integer robotsInOne = this.quartOne.countRobotsInQuadrant();
         Integer robotsInTwo = this.quartTwo.countRobotsInQuadrant();
         Integer robotsInThree = this.quartThree.countRobotsInQuadrant();
         Integer robotsInFour = this.quartFour.countRobotsInQuadrant();
         return robotsInOne * robotsInTwo * robotsInThree * robotsInFour;
     }
-    public void removeRobotPositionFromAllQuadrants(Robot robot){
-                this.quartFour.removeRobotPositionFromQuadrant(robot);
-                this.quartOne.removeRobotPositionFromQuadrant(robot);
-                this.quartTwo.removeRobotPositionFromQuadrant(robot);
-                this.quartThree.removeRobotPositionFromQuadrant(robot);
-    }
-    public void addRobotToQuadrant(String quadrantName, Robot newRobot){
+
+    public void addRobotToQuadrant(String quadrantName, Robot newRobot) {
         switch (quadrantName) {
             case "one":
                 this.quartOne.addRobot(newRobot);
@@ -103,42 +68,42 @@ public class Board {
         }
 
     }
-
     public void moveRobotsXnumberOfTimes(Integer X,ArrayList<Robot> allRobots){
-
-        for (int i1 = 0; i1<X; i1++){
+        for (int i = 1; i<X; i++){
             for(Robot each:allRobots){
-                removeRobotPositionFromAllQuadrants(each);
                 each.updatePosition();
-                checkRobotsInEachQuadrant(each);
             }
-        Integer occupiedPositionsInOne = this.quartOne.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInTwo = this.quartTwo.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInThree = this.quartThree.countNumberOfOccupiedPositions();
-            Integer occupiedPositionsInFour = this.quartFour.countNumberOfOccupiedPositions();
-            //System.out.println(i+"----"+occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-            if ((occupiedPositionsInOne== occupiedPositionsInTwo) &&
-                    (occupiedPositionsInThree == occupiedPositionsInFour)) //&&
-                   // occupiedPositionsInOne < occupiedPositionsInThree)
-            {String [][] matrix = new String[this.width+1][this.height+1];
-                for (int i = 0; i < matrix.length; i++) {         // Loop through rows
-                    for (int j = 0; j < matrix[i].length; j++) {  // Loop through columns
-                        matrix[i][j] =".";
-                    }
-                }
-                for(Robot each:allRobots){
-                    matrix[each.getCurrentX()][each.getCurrentY()] = "#";
-                }
-                for (int i = 0; i < matrix.length / 2; i++) {
-                    for (int j = 0; j < matrix[i].length / 2; j++) {  // Loop through columns
-                        System.out.print(matrix[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                System.out.println(i1+"----"+occupiedPositionsInOne +"," +occupiedPositionsInTwo +"," +occupiedPositionsInThree +"," +occupiedPositionsInFour);
-                //return count;
+        }
+    }
+    public void findXmasTree(Integer X, ArrayList<Robot> allRobots) {
+        for (int i1 = 0; i1 < X; i1++) {
+            for (Robot each : allRobots) {
+                each.updatePosition();
             }
+
+            String[][] matrix = new String[this.width + 1][this.height + 1];
+            for (int i = 0; i < matrix.length; i++) {         // Loop through rows
+                for (int j = 0; j < matrix[i].length; j++) {  // Loop through columns
+                    matrix[i][j] = ".";
+                }
+            }
+            for (Robot each : allRobots) {
+                matrix[each.getCurrentX()][each.getCurrentY()] = "#";
+            }
+            Robot firstRobot = allRobots.get(0);
+            Integer count = XmasTree.countNeighbours(firstRobot.getCurrentX(), firstRobot.getCurrentY(), matrix);
+            //System.out.println(count);
+            if (count>50){
+                System.out.println("iteration: "+i1+","+count);
+                for (int i =( matrix.length/2)-2; i < matrix.length; i++) {         // Loop through rows
+                    for (int j = ( matrix.length/2)-(matrix.length/4);j<( matrix.length/2)+(matrix.length/2); j++) {  // Loop through columns
+                        System.out.print(matrix[j][i]);
+                    }
+                    System.out.println();
+                }
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            }
+
         }
     }
     public void checkRobotsInEachQuadrant(Robot newRobot){
