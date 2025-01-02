@@ -177,7 +177,7 @@ public class Main {
         System.out.println("Day 13 part one: "+totalTokens);
         Object hugeTotalTokens = DayThirteen.countTokens(input,true) ;
         System.out.println("Day 13 part two: "+hugeTotalTokens);*/
-       // inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
+       inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
 
         ArrayList<String> dayFourteenInputRaw = scanner.loadAsArray("dayFourteenInput");
 
@@ -198,7 +198,7 @@ public class Main {
             ;
         }
         Board newBoard = new Board(height,width);
-        System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
+        //System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
         newBoard.findXmasTree(20000,allRobots);
         String[][] matrix = {
                 {"#", "#", "#", "#"},
