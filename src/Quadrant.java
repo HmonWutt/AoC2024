@@ -17,6 +17,16 @@ public class Quadrant {
         this.numberOfOccupiedPositions.add(newRobot.getCurrentX() +","+newRobot.getCurrentY());
 
     }
+    public void removeRobot(Robot newRobot){
+        this.robotsInQuadrant.remove(newRobot);
+
+    }
+    public void addRobotPositionToQuadrant(Robot robot){
+        this.numberOfOccupiedPositions.add(robot.getCurrentX() +","+robot.getCurrentY());
+    }
+    public void removeRobotPositionFromQuadrant(Robot robot){
+        this.numberOfOccupiedPositions.remove(robot.getCurrentX() +","+robot.getCurrentY());
+    }
     public Integer countNumberOfOccupiedPositions(){
         return this.numberOfOccupiedPositions.size();
     }

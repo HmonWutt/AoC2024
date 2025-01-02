@@ -197,9 +197,9 @@ public class Main {
             allRobots.add(newRobot);
             ;
         }
-        System.out.println("Number of robots: "+ allRobots.size());
+       // System.out.println("Number of robots: "+ allRobots.size());
         Board newBoard = new Board(height,width);
-        System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
+        //System.out.println("Part one answer: "+newBoard.countRobots(100,allRobots));
 
        /* Integer total = 0;
         for (int i = 0;i<height;i++){
@@ -207,7 +207,7 @@ public class Main {
             System.out.println(2*i+1);
         }
         System.out.println(total);*/
-        newBoard.countRobots(10000000,allRobots);
+        newBoard.moveRobotsXnumberOfTimes(1000000,allRobots);
 
 
     }
