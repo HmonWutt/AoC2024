@@ -77,7 +77,7 @@ public class Board {
         }
     }
     public void findXmasTree(Integer X, ArrayList<Robot> allRobots) {
-        for (int i1 = 0; i1 < X; i1++) {
+        for (int i1 = 1; i1 < X; i1++) {
             for (Robot each : allRobots) {
                 each.updatePosition();
             }
