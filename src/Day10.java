@@ -8,7 +8,7 @@ public class Day10 {
         for (ArrayList<Integer> XY: trailHeads ){
             Set<ArrayList<Integer>> visitedCoordinates = walkTrailHeads(XY.get(0),XY.get(1),matrix);
             Integer count = countCompleteTrails(visitedCoordinates,matrix);
-            System.out.println(count+ " trails");
+            //System.out.println(count+ " trails");
             total+=count;
             }
         return total;
@@ -100,5 +100,6 @@ public class Day10 {
         System.out.println("There are: "+trailHeadCoordinates.size()+" trailheads");
         return trailHeadCoordinates;
     }
+
 
 }
