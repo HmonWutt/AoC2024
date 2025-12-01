@@ -191,13 +191,14 @@ public class Main {
         ArrayList<Robot> robotsGroupTwo = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
         newBoard.findXmasTree(20000,robotsGroupTwo);*/
 
-//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/1/input", "011225");
+        inputDownloader.downloadInput("https://adventofcode.com/2025/day/1/input", "011225");
 
 //        ArrayList<String> dayOne= scanner.loadAsArray("011225");
         ArrayList<String> dayOne = new ArrayList<>(Arrays.asList("L68","L30","R48","L5","R60","L55","L1","L99","R14","L82"));
         Safe safe = new Safe();
-        for (String each : dayOne){
-            safe.turn(each);
+        for (String each:dayOne){
+
+            safe.turnTwo(each);
 
         }
         System.out.println(safe.count);
