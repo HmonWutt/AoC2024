@@ -1,6 +1,6 @@
-import java.math.BigInteger;
-import java.sql.SQLOutput;
 import java.util.*;
+
+import static java.lang.System.in;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -8,7 +8,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         AoCInputDownloader inputDownloader = new AoCInputDownloader();
-        ReadFromFileUsingScanner scanner = new ReadFromFileUsingScanner();
+        ReadFromFile scanner = new ReadFromFile();
 
         //////-------------------------------------DAY ONE------------------------------------------------////////
        /* inputDownloader.downloadInput("https://adventofcode.com/2024/day/1/input", "dayOneInput");
@@ -177,21 +177,32 @@ public class Main {
         System.out.println("Day 13 part one: "+totalTokens);
         Object hugeTotalTokens = DayThirteen.countTokens(input,true) ;
         System.out.println("Day 13 part two: "+hugeTotalTokens);*/
-       inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
-
-        ArrayList<String> dayFourteenInputRaw = scanner.loadAsArray("dayFourteenInput");
-
-        ArrayList<ArrayList<Integer>> robotDetails = new ArrayList<>();
+//        inputDownloader.downloadInput("https://adventofcode.com/2024/day/14/input", "dayFourteenInput");
+//        ArrayList<String> dayFourteenInputRaw = scanner.loadAsArray("dayFourteenInput");
+       /* ArrayList<ArrayList<Integer>> robotDetails = new ArrayList<>();
         ArrayList<Robot> allRobots = new ArrayList<>();
-        /*Integer height = 6;///for test
-        Integer width = 10;*/
+        *//*Integer height = 6;///for test
+        Integer width = 10;*//*
         Integer height = 102;
         Integer width = 100;
         Board newBoard = new Board(height,width);
         ArrayList<Robot> robotsGroupOne = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
         System.out.println("Part one answer: "+newBoard.countRobots(100,robotsGroupOne));
         ArrayList<Robot> robotsGroupTwo = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
-        newBoard.findXmasTree(20000,robotsGroupTwo);
+        newBoard.findXmasTree(20000,robotsGroupTwo);*/
+
+//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/1/input", "011225");
+
+//        ArrayList<String> dayOne= scanner.loadAsArray("011225");
+        ArrayList<String> dayOne = new ArrayList<>(Arrays.asList("L68","L30","R48","L5","R60","L55","L1","L99","R14","L82"));
+        Safe safe = new Safe();
+        for (String each : dayOne){
+            safe.turn(each);
+
+        }
+        System.out.println(safe.count);
+
+
 
     }
 
