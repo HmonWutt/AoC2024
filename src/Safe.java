@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import static java.lang.Math.abs;
-import static java.lang.Math.floorDiv;
 
 
 
 public class Safe {
-    int currentPosition = 50;
+    int currentPosition1 = 50;
+    int currentPosition=50;
     int count;
     int count1;
 
@@ -13,15 +14,15 @@ public class Safe {
         int number = Integer.parseInt( instruction.substring(1));
         int rotations = 0;
         if (direction.equals("L")){
-            rotations = this.currentPosition +100 - number%100;
+            rotations = this.currentPosition1 +100 - number%100;
         }
         else{
-            rotations = number + this.currentPosition;
+            rotations = number + this.currentPosition1;
         }
-        this.currentPosition = abs(rotations)%100;
-        System.out.println(this.currentPosition);
-        if (this.currentPosition == 0){
-            this.count+=1;
+        this.currentPosition1 = abs(rotations)%100;
+//        System.out.println(this.currentPosition1);
+        if (this.currentPosition1 == 0){
+            this.count1+=1;
         }
     }
     public void turnTwo(String instruction){
@@ -54,4 +55,17 @@ public class Safe {
 //            System.out.println("Count : "+this.count);
 
         }
+
+    public static void run(ArrayList<String> dayOne) {
+
+//        ArrayList<String> dayOne = new ArrayList<>(Arrays.asList("L68","L30","R48","L5","R60","L55","L1","L99","R14","L82"));
+        Safe safe = new Safe();
+        for (String each:dayOne){
+            safe.turn(each);
+            safe.turnTwo(each);
+
+        }
+        System.out.println("Part one: "+safe.count1);
+        System.out.println("Part two: "+safe.count);
+    }
     }
