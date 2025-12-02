@@ -1,10 +1,5 @@
-import com.sun.jdi.IntegerType;
 
-import java.lang.reflect.Array;
-import java.math.BigInteger;
 import java.util.*;
-
-import static java.lang.System.in;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -203,7 +198,8 @@ public class Main {
 
         String dayTwo = scanner.loadAsString("021225");
         ArrayList<String> input = new ArrayList<>(Arrays.asList(dayTwo.split(",")));
-        ArrayList<Long> answer = new ArrayList<>();
+        ArrayList<Long> answer1 = new ArrayList<>();
+        ArrayList<Long> answer2 = new ArrayList<>();
 
         for (String each: input){
 
@@ -211,16 +207,25 @@ public class Main {
             long start =Long.parseLong(list.getFirst());
             long end = Long.parseLong(list.get(1));
             IdRange range = new IdRange(start,end);
-            ArrayList<Long> invalidIds = range.findInvalid();
-            answer.addAll(invalidIds);
+            range.findInvalid();
+            answer1.addAll(range.invalidIds1);
+            answer2.addAll(range.invalidIds);
         }
 //        System.out.println(answer);
         long total = 0;
-        for (long each: answer){
+        for (long each: answer1){
             total+=each;
 
         }
-        System.out.println(total);
+        System.out.println("Day 2 part one: "+total);
+        long total2 = 0;
+        for (long each: answer2){
+            total2+=each;
+
+        }
+        System.out.println("Day 2 part two: "+total2);
+
+
 
     }
 
