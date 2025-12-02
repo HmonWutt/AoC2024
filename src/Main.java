@@ -1,3 +1,7 @@
+import com.sun.jdi.IntegerType;
+
+import java.lang.reflect.Array;
+import java.math.BigInteger;
 import java.util.*;
 
 import static java.lang.System.in;
@@ -195,9 +199,28 @@ public class Main {
         ArrayList<String> dayOne= scanner.loadAsArray("011225");
         Safe.run(dayOne);
 
+        inputDownloader.downloadInput("https://adventofcode.com/2025/day/2/input", "021225");
 
+        String dayTwo = scanner.loadAsString("021225");
+        ArrayList<String> input = new ArrayList<>(Arrays.asList(dayTwo.split(",")));
+        ArrayList<Long> answer = new ArrayList<>();
 
+        for (String each: input){
 
+            List<String> list = new ArrayList<>(Arrays.asList(each.split("-")));
+            long start =Long.parseLong(list.getFirst());
+            long end = Long.parseLong(list.get(1));
+            IdRange range = new IdRange(start,end);
+            ArrayList<Long> invalidIds = range.findInvalid();
+            answer.addAll(invalidIds);
+        }
+//        System.out.println(answer);
+        long total = 0;
+        for (long each: answer){
+            total+=each;
+
+        }
+        System.out.println(total);
 
     }
 
