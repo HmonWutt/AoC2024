@@ -224,6 +224,17 @@ public class Main {
 
         }
         System.out.println("Day 2 part two: "+total2);
+        inputDownloader.downloadInput("https://adventofcode.com/2025/day/3/input", "031225");
+
+        ArrayList<String>dayThree = scanner.loadAsArray("031225");
+
+        long sum = 0;
+        for (String each: dayThree){
+            sum+= Battery.findBiggest12Digit(each);
+
+        }
+        System.out.println(sum);
+
 
 
 
