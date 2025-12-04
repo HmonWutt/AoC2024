@@ -190,54 +190,95 @@ public class Main {
         ArrayList<Robot> robotsGroupTwo = DayFourteen.putRobotsAtStartingPosition(dayFourteenInputRaw,height,width);
         newBoard.findXmasTree(20000,robotsGroupTwo);*/
 
-        inputDownloader.downloadInput("https://adventofcode.com/2025/day/1/input", "011225");
-        ArrayList<String> dayOne= scanner.loadAsArray("011225");
-        Safe.run(dayOne);
+//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/1/input", "011225");
+//        ArrayList<String> dayOne= scanner.loadAsArray("011225");
+//        Safe.run(dayOne);
+//
+//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/2/input", "021225");
+//
+//        String dayTwo = scanner.loadAsString("021225");
+//        ArrayList<String> input = new ArrayList<>(Arrays.asList(dayTwo.split(",")));
+//        ArrayList<Long> answer1 = new ArrayList<>();
+//        ArrayList<Long> answer2 = new ArrayList<>();
+//
+//        for (String each: input){
+//
+//            List<String> list = new ArrayList<>(Arrays.asList(each.split("-")));
+//            long start =Long.parseLong(list.getFirst());
+//            long end = Long.parseLong(list.get(1));
+//            IdRange range = new IdRange(start,end);
+//            range.findInvalid();
+//            answer1.addAll(range.invalidIds1);
+//            answer2.addAll(range.invalidIds);
+//        }
+////        System.out.println(answer);
+//        long total = 0;
+//        for (long each: answer1){
+//            total+=each;
+//
+//        }
+//        System.out.println("Day 2 part one: "+total);
+//        long total2 = 0;
+//        for (long each: answer2){
+//            total2+=each;
+//
+//        }
+//        System.out.println("Day 2 part two: "+total2);
+//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/3/input", "031225");
+//
+//        ArrayList<String>dayThree = scanner.loadAsArray("031225");
+//
+//        long sum = 0;
+//        for (String each: dayThree){
+//            sum+= Battery.findBiggest12Digit(each);
+//
+//        }
+//        System.out.println(sum);
+        inputDownloader.downloadInput("https://adventofcode.com/2025/day/4/input", "041225");
 
-        inputDownloader.downloadInput("https://adventofcode.com/2025/day/2/input", "021225");
-
-        String dayTwo = scanner.loadAsString("021225");
-        ArrayList<String> input = new ArrayList<>(Arrays.asList(dayTwo.split(",")));
-        ArrayList<Long> answer1 = new ArrayList<>();
-        ArrayList<Long> answer2 = new ArrayList<>();
-
-        for (String each: input){
-
-            List<String> list = new ArrayList<>(Arrays.asList(each.split("-")));
-            long start =Long.parseLong(list.getFirst());
-            long end = Long.parseLong(list.get(1));
-            IdRange range = new IdRange(start,end);
-            range.findInvalid();
-            answer1.addAll(range.invalidIds1);
-            answer2.addAll(range.invalidIds);
+        ArrayList<String>dayFour = scanner.loadAsArray("041225");
+        String[] grid = dayFour.toArray(new String[0]);
+        PaperRoll.makeGrid(grid);
+        int gridLen = grid.length;
+        int count = -1;
+        int old_count = 0;
+        while (count!=old_count) {
+            count = run(gridLen, old_count);
         }
-//        System.out.println(answer);
-        long total = 0;
-        for (long each: answer1){
-            total+=each;
-
+        System.out.println(count);
+        int finalCount = 0;
+        for (int x = 0; x < gridLen; x++) {
+            for (int y = 0; y < gridLen; y++)
+                if (PaperRoll.grid[x].charAt(y)=='X') finalCount+=1;
         }
-        System.out.println("Day 2 part one: "+total);
-        long total2 = 0;
-        for (long each: answer2){
-            total2+=each;
-
-        }
-        System.out.println("Day 2 part two: "+total2);
-        inputDownloader.downloadInput("https://adventofcode.com/2025/day/3/input", "031225");
-
-        ArrayList<String>dayThree = scanner.loadAsArray("031225");
-
-        long sum = 0;
-        for (String each: dayThree){
-            sum+= Battery.findBiggest12Digit(each);
-
-        }
-        System.out.println(sum);
-
-
-
-
+        System.out.println(finalCount);
     }
+    public static int run(int gridLen, int old_count){
+        int count = old_count;
+        for (int x = 0; x < gridLen; x++) {
+            for (int y = 0; y < gridLen; y++) {
+                if (PaperRoll.grid[x].charAt(y) == '@') {
+                    PaperRoll paperRoll = new PaperRoll(x, y);
+                    int neighbours = paperRoll.getNeighbours();
+                    if (neighbours <= 4) {
+                        count += 1;
+                        String[] gridCopy = Arrays.copyOf(PaperRoll.grid, gridLen);
+                        StringBuilder stringBuilder = new StringBuilder(gridCopy[x]);
+                        stringBuilder.setCharAt(y, 'X');
+                        gridCopy[x] = stringBuilder.toString();
+                        PaperRoll.makeGrid(gridCopy);
+//                        System.out.println("Paper rolls with less than 4 neighbours: " + count);
+//                        for (String each : PaperRoll.grid) {
+//                            System.out.println(each);
+//                        }
+
+                    }
+                }
+            }
+
+        }
+        return count;
+    }
+
 
 }
