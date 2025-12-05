@@ -233,52 +233,61 @@ public class Main {
 //            sum+= Battery.findBiggest12Digit(each);
 //
 //        }
-//        System.out.println(sum);
-        inputDownloader.downloadInput("https://adventofcode.com/2025/day/4/input", "041225");
+////        System.out.println(sum);
+//        inputDownloader.downloadInput("https://adventofcode.com/2025/day/4/input", "041225");
+//
+//        ArrayList<String>dayFour = scanner.loadAsArray("041225");
+//        String[] grid = dayFour.toArray(new String[0]);
+//        PaperRoll.makeGrid(grid);
+//        int gridLen = grid.length;
+//        int count = -1;
+//        int old_count = 0;
+//        while (count!=old_count) {
+//            count = run(gridLen, old_count);
+//        }
+//        System.out.println(count);
+//        int finalCount = 0;
+//        for (int x = 0; x < gridLen; x++) {
+//            for (int y = 0; y < gridLen; y++)
+//                if (PaperRoll.grid[x].charAt(y)=='X') finalCount+=1;
+//        }
+//        System.out.println(finalCount);
 
-        ArrayList<String>dayFour = scanner.loadAsArray("041225");
-        String[] grid = dayFour.toArray(new String[0]);
-        PaperRoll.makeGrid(grid);
-        int gridLen = grid.length;
-        int count = -1;
-        int old_count = 0;
-        while (count!=old_count) {
-            count = run(gridLen, old_count);
-        }
-        System.out.println(count);
-        int finalCount = 0;
-        for (int x = 0; x < gridLen; x++) {
-            for (int y = 0; y < gridLen; y++)
-                if (PaperRoll.grid[x].charAt(y)=='X') finalCount+=1;
-        }
-        System.out.println(finalCount);
+        inputDownloader.downloadInput("https://adventofcode.com/2025/day/5/input", "051225");
+        String dayFive = scanner.keepLineBreaks("test5");
+        String[] splits = dayFive.split("\\R\\s*\\R");
+
+        Ingredients ranges = new Ingredients(splits[0]);
+//        int count = ranges.run(splits[1]);
+//        System.out.println(count);
+
     }
-    public static int run(int gridLen, int old_count){
-        int count = old_count;
-        for (int x = 0; x < gridLen; x++) {
-            for (int y = 0; y < gridLen; y++) {
-                if (PaperRoll.grid[x].charAt(y) == '@') {
-                    PaperRoll paperRoll = new PaperRoll(x, y);
-                    int neighbours = paperRoll.getNeighbours();
-                    if (neighbours <= 4) {
-                        count += 1;
-                        String[] gridCopy = Arrays.copyOf(PaperRoll.grid, gridLen);
-                        StringBuilder stringBuilder = new StringBuilder(gridCopy[x]);
-                        stringBuilder.setCharAt(y, 'X');
-                        gridCopy[x] = stringBuilder.toString();
-                        PaperRoll.makeGrid(gridCopy);
-//                        System.out.println("Paper rolls with less than 4 neighbours: " + count);
-//                        for (String each : PaperRoll.grid) {
-//                            System.out.println(each);
-//                        }
-
-                    }
-                }
-            }
-
-        }
-        return count;
-    }
+//    public static int run(int gridLen, int old_count){
+//        int count = old_count;
+//        for (int x = 0; x < gridLen; x++) {
+//            for (int y = 0; y < gridLen; y++) {
+//                if (PaperRoll.grid[x].charAt(y) == '@') {
+//                    PaperRoll paperRoll = new PaperRoll(x, y);
+//                    int neighbours = paperRoll.getNeighbours();
+//                    if (neighbours <= 4) {
+//                        count += 1;
+//                        String[] gridCopy = Arrays.copyOf(PaperRoll.grid, gridLen);
+//                        StringBuilder stringBuilder = new StringBuilder(gridCopy[x]);
+//                        stringBuilder.setCharAt(y, 'X');
+//                        gridCopy[x] = stringBuilder.toString();
+//                        PaperRoll.makeGrid(gridCopy);
+////                        System.out.println("Paper rolls with less than 4 neighbours: " + count);
+////                        for (String each : PaperRoll.grid) {
+////                            System.out.println(each);
+////                        }
+//
+//                    }
+//                }
+//            }
+//
+//        }
+//        return count;
+//    }
 
 
 }
