@@ -65,19 +65,27 @@ public class Ingredients {
         long  end = Ingredients.ranges.getFirst().getLast();
         List<Long> starting = Ingredients.ranges.removeFirst();
         int index = 0;
+        Set<List<Long>> leftOvers = new HashSet<>();
         checked.add(starting);
         while (index <Ingredients.ranges.size()+1){
-            for (List<Long> each: Ingredients.ranges){
-                if (!checked.contains(each)) {
-                    if (abs(end - each.getFirst()) >= 0) {
-                        start = start < each.getFirst() ? start : each.getFirst();
-                        end = end < each.getLast() ? end : each.getLast();
-                        checked.add(each);
-                    }
+            for (int i = index+1; i < Ingredients.ranges.size();i++){
+                List<Long> each = Ingredients.ranges.get(i);
+                if (abs(end - each.getFirst()) >= 0) {
+                    start = start < each.getFirst() ? start : each.getFirst();
+                    end = end < each.getLast() ? end : each.getLast();
                 }
 
             }
-
+            long tempStart = 0l;
+            long tempEnd = 0l;
+            if (start == Ingredients.ranges.get(index).getFirst()){
+                 tempStart = start;
+            }
+            if (end == Ingredients.ranges.get(index).getLast()){
+                tempEnd = end;
+            }
+            leftOvers.add(List.of(tempStart,tempEnd));
+            index++;
             }
 
         }
