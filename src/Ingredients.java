@@ -1,7 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static java.lang.Math.abs;
 
 public class Ingredients {
     static List<List<Long>> ranges ;
@@ -35,7 +33,6 @@ public class Ingredients {
         return ranges;
     }
 
-
     static int run(String ingredients){
         String[] listOfIngredients = ingredients.split("\\R");
         int countOfFreshIngredients = 0;
@@ -49,49 +46,33 @@ public class Ingredients {
         return countOfFreshIngredients;
     }
 
-    static Long process(List<Long> range, Long target){
-        Long start = range.getFirst();
-        Long end = range.getLast();
-        if (target >= start && target <=end){
-            return -1L;
+    static void makeHeap(){
+        PriorityQueue<List<Long>> heap = new PriorityQueue<>(
+                (a, b) -> Long.compare(a.get(0), b.get(0))
+        );
+        for (List<Long> each: Ingredients.ranges){
+            heap.add(each);
         }
-        return target;
+        List<Long> first = heap.poll();
+        List<List<Long>> newRanges = new ArrayList<>();
+        long total = 0l;
+        while (!heap.isEmpty()){
+            List<Long>second = heap.poll();
+            if (first.getLast()<second.getFirst()){
+                long diff = first.getLast() - first.getFirst()+1;
+                total+= diff;
+                first = second;
+            }
+            else{
+                long start = first.getFirst();
+                long end = first.getLast() < second.getLast()?  second.getLast():first.getLast();
+                first = List.of(start,end);
+            }
 
+        }
+        total+=(first.getLast()-first.getFirst()+1);
+        System.out.println(total);
     }
-
-    static void iterateOver(){
-        Set <List<Long>> checked = new HashSet<>();
-        long start = Ingredients.ranges.getFirst().getFirst();
-        long  end = Ingredients.ranges.getFirst().getLast();
-        List<Long> starting = Ingredients.ranges.removeFirst();
-        int index = 0;
-        Set<List<Long>> leftOvers = new HashSet<>();
-        checked.add(starting);
-        while (index <Ingredients.ranges.size()+1){
-            for (int i = index+1; i < Ingredients.ranges.size();i++){
-                List<Long> each = Ingredients.ranges.get(i);
-                if (abs(end - each.getFirst()) >= 0) {
-                    start = start < each.getFirst() ? start : each.getFirst();
-                    end = end < each.getLast() ? end : each.getLast();
-                }
-
-            }
-            long tempStart = 0l;
-            long tempEnd = 0l;
-            if (start == Ingredients.ranges.get(index).getFirst()){
-                 tempStart = start;
-            }
-            if (end == Ingredients.ranges.get(index).getLast()){
-                tempEnd = end;
-            }
-            leftOvers.add(List.of(tempStart,tempEnd));
-            index++;
-            }
-
-        }
-
-
-
 
 }
 

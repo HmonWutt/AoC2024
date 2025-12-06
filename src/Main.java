@@ -254,10 +254,12 @@ public class Main {
 //        System.out.println(finalCount);
 
         inputDownloader.downloadInput("https://adventofcode.com/2025/day/5/input", "051225");
-        String dayFive = scanner.keepLineBreaks("test5");
+        String dayFive = scanner.keepLineBreaks("051225");
         String[] splits = dayFive.split("\\R\\s*\\R");
 
         Ingredients ranges = new Ingredients(splits[0]);
+        Ingredients.makeHeap();
+//        Ingredients.loopOver(Ingredients.ranges);
 //        int count = ranges.run(splits[1]);
 //        System.out.println(count);
 
